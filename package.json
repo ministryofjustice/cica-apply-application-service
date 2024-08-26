@@ -50,7 +50,7 @@
         "jest": "^28.1.3",
         "json-schema-ref-parser": "^6.1.0",
         "lint-staged": "^11.0.0",
-        "nodemon": "^2.0.22",
+        "nodemon": "^3.1.4",
         "prettier": "^1.19.1",
         "speccy": "github:wework/speccy#740d19d88935db7735250c16abc2ad09256b5854",
         "yamljs": "^0.3.0"
