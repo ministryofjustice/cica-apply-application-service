@@ -1,9 +1,9 @@
 'use strict';
 
-const PDFKitHTML = require('@shipper/pdfkit-html-simple');
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const moment = require('moment');
+const cheerio = require('cheerio');
 const logger = require('../logging/logger');
 
 /** Returns PDF Service object with a function to write a JSON to a PDF */
@@ -60,6 +60,8 @@ function createPdfService() {
         return new Promise(res => {
             // Initialise core PDF Document
             const pdfDocument = new PDFDocument({bufferPages: true});
+            const stream = fs.createWriteStream(pdfLoc);
+            pdfDocument.pipe(stream);
 
             /**
              * Writes a Subquestion of a composite question to a new line of the PDF
@@ -211,6 +213,61 @@ function createPdfService() {
                 pdfDocument.text(type);
                 pdfDocument.moveDown();
             }
+            /**
+             * Clean a given string, trimming white space and ensuring all white space is in the correct format
+             * @param {String} text
+             * @returns The cleaned string
+             */
+            function cleanText(text) {
+                return text.replace(/\s+/g, ' ').trim();
+            }
+
+            /**
+             * Write the HTML declaration string to the document
+             * @param {PDFDocument} document
+             * @param {String} declaration
+             */
+            function writeDeclaration(document, declaration) {
+                const $ = cheerio.load(declaration);
+                const elements = $('div[id="declaration"] *');
+
+                $(elements).each((index, element) => {
+                    if (element.name === 'p') {
+                        document
+                            .fontSize(12)
+                            .font('Helvetica')
+                            .moveDown()
+                            .text(cleanText($(element).text()));
+                    } else if (element.name === 'li') {
+                        const depth = $(element).parentsUntil('div[id="declaration"]').length;
+                        let listItem = [cleanText($(element).text())];
+                        for (let i = 0; i < depth; i += 1) {
+                            listItem = [listItem]; // Nested arrays created nested lists
+                        }
+                        document
+                            .fontSize(12)
+                            .font('Helvetica')
+                            .list(listItem, {textIndent: 20, bulletIndent: 20});
+                    } else if (element.name.includes('h')) {
+                        document
+                            .fontSize(18)
+                            .font('Helvetica-Bold')
+                            .moveDown()
+                            .text(cleanText($(element).text()));
+                    }
+                });
+                // Now write the date and line stating they agree
+                document.moveDown();
+                document
+                    .fontSize(12)
+                    .font('Helvetica-Bold')
+                    .text(`Date: ${moment(json.meta.submittedDate).format('DD/MM/YYYY')}`);
+                document.moveDown();
+                document
+                    .fontSize(12)
+                    .font('Helvetica-Bold')
+                    .text(json.declaration.valueLabel);
+            }
 
             // Write the main header to the beginning of the document
             writeHeader();
@@ -265,64 +322,20 @@ function createPdfService() {
 
             pdfDocument.fillColor('#444444');
 
-            // Get the HTML string from the declaration section of the application json.
-            let bufStr = json.declaration.label;
-            bufStr = `
-                <style>p { margin: 10px;}</style>
-                ${bufStr}
-                <p style="font-weight: bold;">Date: ${moment(json.meta.submittedDate).format(
-                    'DD/MM/YYYY'
-                )}</p>
-                <p style="font-weight: bold;">${json.declaration.valueLabel}</p>
-                `;
-            const htmlBuffer = Buffer.from(bufStr, 'utf8');
+            // Write the HTML string from the declaration section of the application json.
+            writeDeclaration(pdfDocument, json.declaration.label);
 
-            PDFKitHTML.parse(htmlBuffer)
-                .then(function(transformations) {
-                    return transformations.reduce(function(promise, transformation) {
-                        return promise.then(transformation);
-                    }, Promise.resolve(pdfDocument));
-                })
-                .then(function(document) {
-                    return new Promise(function(resolve, reject) {
-                        const buffers = [];
+            const pages = pdfDocument.bufferedPageRange();
+            for (let i = 0; i < pages.count; i += 1) {
+                pdfDocument.switchToPage(i);
+                writeFooter(pdfDocument);
+            }
 
-                        document.on('data', function(chunk) {
-                            buffers.push(chunk);
-                        });
-
-                        document.on('error', reject);
-
-                        document.on('end', function() {
-                            resolve(Buffer.concat(buffers));
-                        });
-
-                        const pages = document.bufferedPageRange();
-                        for (let i = 0; i < pages.count; i += 1) {
-                            document.switchToPage(i);
-                            writeFooter(document);
-                        }
-
-                        document.flushPages();
-                        document.end();
-                    });
-                })
-                .then(function(buffer) {
-                    return new Promise((resolve, reject) => {
-                        fs.writeFile(pdfLoc, buffer, err => {
-                            if (err) {
-                                reject(err);
-                            } else {
-                                resolve(true);
-                            }
-                        });
-                    });
-                })
-                .then(() => res(true))
-                .catch(error => {
-                    logger.error(error);
-                });
-        });
+            pdfDocument.end();
+            stream.on('finish', function() {
+                res(true);
+            });
+        }).catch(err => logger.error(err));
     }
 
     return Object.freeze({
