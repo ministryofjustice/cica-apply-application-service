@@ -11,7 +11,8 @@ function createS3Service() {
 
     const s3client = new S3Client({
         region: 'eu-west-2',
-        endpoint: process.env.NODE_ENV === 'local' ? 'http://localhost:4566' : undefined
+        endpoint: process.env.NODE_ENV === 'local' ? 'http://localhost:4566' : undefined,
+        forcePathStyle: process.env.NODE_ENV === 'local' ? true : undefined
     });
 
     /**
