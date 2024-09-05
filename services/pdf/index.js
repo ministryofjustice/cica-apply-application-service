@@ -2,7 +2,6 @@
 
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
-const moment = require('moment');
 const cheerio = require('cheerio');
 const logger = require('../logging/logger');
 
@@ -71,7 +70,9 @@ function createPdfService() {
                 pdfDocument.fontSize(12.5).font('Helvetica');
                 if (question.format && question.format.value === 'date-time') {
                     pdfDocument.text(
-                        moment(question.valueLabel || question.value).format('DD/MM/YYYY'),
+                        Intl.DateTimeFormat('en-GB').format(
+                            new Date(question.valueLabel || question.value)
+                        ),
                         {indent: 30}
                     );
                 } else {
@@ -112,7 +113,9 @@ function createPdfService() {
                         .font('Helvetica');
                     if (question.format && question.format.value === 'date-time') {
                         pdfDocument.text(
-                            moment(question.valueLabel || question.value).format('DD/MM/YYYY')
+                            Intl.DateTimeFormat('en-GB').format(
+                                new Date(question.valueLabel || question.value)
+                            )
                         );
                     } else if (Array.isArray(question.valueLabel)) {
                         pdfDocument.text(question.valueLabel.join('\n'));
@@ -176,8 +179,14 @@ function createPdfService() {
                 // Need to set the bottom margin to zero to allow writing the footer into the margin
                 const {bottom} = document.page.margins;
                 document.page.margins.bottom = 0;
-
-                const date = moment().format('DD/MM/YYYY hh:mm A');
+                const date = Intl.DateTimeFormat('en-gb', {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    hour12: true
+                }).format(new Date());
                 document
                     .fontSize(10)
                     .font('Helvetica')
@@ -261,7 +270,11 @@ function createPdfService() {
                 document
                     .fontSize(12)
                     .font('Helvetica-Bold')
-                    .text(`Date: ${moment(json.meta.submittedDate).format('DD/MM/YYYY')}`);
+                    .text(
+                        `Date: ${Intl.DateTimeFormat('en-GB').format(
+                            new Date(json.meta.submittedDate)
+                        )}`
+                    );
                 document.moveDown();
                 document
                     .fontSize(12)
