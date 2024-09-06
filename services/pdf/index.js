@@ -282,6 +282,20 @@ function createPdfService() {
                     .text(json.declaration.valueLabel);
             }
 
+            /**
+             * Check if there is not enough space at the current position on the page relative to the bottom margin
+             * @param {PDFDocument} document
+             * @returns true if there is not enough space to write text
+             */
+            function checkEndOfPage(document) {
+                const bottomMargin = document.page.margins.bottom;
+                const bottomBorder = document.page.height;
+                const yPos = document.y;
+                const lineHeight = document.currentLineHeight();
+
+                return yPos > bottomBorder - bottomMargin - lineHeight - 25;
+            }
+
             // Write the main header to the beginning of the document
             writeHeader();
 
@@ -291,17 +305,11 @@ function createPdfService() {
             // Loops over each theme in the json, and for each writes the header and then
             //     loops through each question in the theme, which are each written using addPDFQuestion
             Object.keys(json.themes).forEach(function(t) {
-                const bottomMargin = pdfDocument.page.margins.bottom;
-                const bottomBorder = pdfDocument.page.height;
-                const yPos = pdfDocument.y;
-                const lineHeight = pdfDocument.currentLineHeight();
-
-                // If we are too close to the bottom of the page, start writing the header
-                // to the top of a new page instead. This is calculated based on the current Y position
-                // in relation to the bottom border of the page, with a buffer of (25 + line height)
-                /* istanbul ignore next */
-
-                if (yPos > bottomBorder - bottomMargin - lineHeight - 25) {
+                if (checkEndOfPage(pdfDocument)) {
+                    // If we are too close to the bottom of the page, start writing the header
+                    // to the top of a new page instead. This is calculated based on the current Y position
+                    // in relation to the bottom border of the page, with a buffer of (25 + line height)
+                    /* istanbul ignore next */
                     pdfDocument.addPage();
                 }
 
@@ -327,6 +335,10 @@ function createPdfService() {
             pdfDocument.fillColor('#444444');
 
             // Consent summary header
+
+            if (checkEndOfPage(pdfDocument)) {
+                pdfDocument.addPage();
+            }
             pdfDocument.fontSize(14.5).font('Helvetica-Bold');
             const height = pdfDocument.currentLineHeight();
             pdfDocument.rect(pdfDocument.x - 5, pdfDocument.y - 6, 480, height + 10).fill('#000');
