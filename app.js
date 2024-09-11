@@ -5,7 +5,6 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
 const path = require('path');
-const OpenApiValidator = require('express-openapi-validator');
 const errorHandler = require('./middleware/error-handler');
 const applicationService = require('./services/application');
 
@@ -49,16 +48,6 @@ app.use((req, res, next) => {
 
     next();
 });
-
-// Install the OpenApiValidator onto express app
-app.use(
-    OpenApiValidator.middleware({
-        apiSpec: './openapi/openapi.json',
-        validateRequests: true,
-        validateResponses: false,
-        validateSecurity: false
-    })
-);
 
 // Express doesn't treat 404s as errors. If the following handler has been reached then nothing else matched e.g. a 404
 // https://expressjs.com/en/starter/faq.html#how-do-i-handle-404-responses

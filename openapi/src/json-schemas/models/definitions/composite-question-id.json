@@ -1,7 +1,0 @@
-{
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Composite question Id",
-    "description": "Allows for questions with multiple parts e.g. fullname consists of title, firstname, lastname.",
-    "type": "string",
-    "pattern": "^[a-z][a-z0-9]{0,19}(?:-[a-z0-9]{1,20}){0,20}$"
-}
