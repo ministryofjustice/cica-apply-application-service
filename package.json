@@ -1,6 +1,6 @@
 {
     "name": "Application Service",
-    "version": "1.0.9",
+    "version": "1.0.10",
     "engines": {
         "npm": ">=9.5.0",
         "node": ">=22.8.0"
