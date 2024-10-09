@@ -179,13 +179,14 @@ function createPdfService() {
                 // Need to set the bottom margin to zero to allow writing the footer into the margin
                 const {bottom} = document.page.margins;
                 document.page.margins.bottom = 0;
-                const date = Intl.DateTimeFormat('en-gb', {
+                const date = Intl.DateTimeFormat('en-GB', {
                     year: 'numeric',
                     month: 'numeric',
                     day: 'numeric',
                     hour: 'numeric',
                     minute: 'numeric',
-                    hour12: true
+                    hour12: true,
+                    timeZone: 'Europe/London'
                 }).format(new Date());
                 document
                     .fontSize(10)
