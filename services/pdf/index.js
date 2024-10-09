@@ -179,20 +179,21 @@ function createPdfService() {
                 // Need to set the bottom margin to zero to allow writing the footer into the margin
                 const {bottom} = document.page.margins;
                 document.page.margins.bottom = 0;
-                const date = Intl.DateTimeFormat('en-gb', {
+                const ukDate = new Date().toLocaleString('en-GB', {timeZone: 'Europe/London'});
+                const formattedDate = Intl.DateTimeFormat('en-gb', {
                     year: 'numeric',
                     month: 'numeric',
                     day: 'numeric',
                     hour: 'numeric',
                     minute: 'numeric',
                     hour12: true
-                }).format(new Date());
+                }).format(new Date(ukDate));
                 document
                     .fontSize(10)
                     .font('Helvetica')
                     .fillColor('#808080')
                     .text(
-                        `Case reference no.:         ${json.meta.caseReference}        Submitted on:        ${date}`,
+                        `Case reference no.:         ${json.meta.caseReference}        Submitted on:        ${formattedDate}`,
                         0,
                         document.page.height - 25,
                         {
