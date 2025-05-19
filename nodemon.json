@@ -1,21 +1,4 @@
 {
-    "ignoreRoot": [
-        ".git",
-        ".nyc_output",
-        ".sass-cache",
-        "bower_components",
-        "coverage",
-        "./node_modules/!(q-templates-application)/dist/template.json"
-    ],
-    "watch": [
-        "node_modules/q-templates-application/dist/template.json",
-        "db",
-        "docs",
-        "middleware",
-        "openapi",
-        "public",
-        "questionnaire",
-        "services",
-        "app.js"
-    ]
+    "ignoreRoot": [".git", "coverage"],
+    "watch": ["docs", "middleware", "public", "services", "app.js"]
 }

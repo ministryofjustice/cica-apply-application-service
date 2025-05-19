@@ -3,6 +3,4 @@ const config = {
     '*.{json,yml,yaml}': ['prettier --write']
 };
 
-config['./openapi/*.json'] = ['speccy lint ./openapi/openapi.json'];
-
 module.exports = config;

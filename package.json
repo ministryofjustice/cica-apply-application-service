@@ -7,11 +7,8 @@
     },
     "scripts": {
         "start": "node ./bin/www",
-        "start:dev": "nodemon -L -e .js,.json,.njk,.yml --ignore openapi/openapi.json --exec npm run build:run:dev",
-        "openapi:build": "speccy lint openapi/src/openapi-src.json -j && speccy resolve ./openapi/src/openapi-src.json -j | yaml2json --pretty --indentation 4 --save - > ./openapi/openapi.json && node ./openapi/src/dereference-openapi.js",
-        "build:run:dev": "npm run openapi:build && node --inspect=0.0.0.0:9229 ./bin/www",
-        "prepare#": "npm run openapi:build",
-        "pretest#": "npm run openapi:build",
+        "start:dev": "nodemon -L -e .js,.json,.njk,.yml  --exec npm run build:run:dev",
+        "build:run:dev": "node --inspect=0.0.0.0:9229 ./bin/www",
         "test": "jest",
         "coverage": "jest --coverage",
         "dump-eslint-conf": "eslint --print-config ./app.js > ./stuff/eslint-conf.json",
@@ -47,7 +44,6 @@
         "lint-staged": "^11.0.0",
         "nodemon": "^3.1.4",
         "prettier": "^1.19.1",
-        "speccy": "github:wework/speccy#740d19d88935db7735250c16abc2ad09256b5854",
         "yamljs": "^0.3.0"
     },
     "license": "MIT"
