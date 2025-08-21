@@ -193,7 +193,7 @@ function createPdfService() {
                     .font('Helvetica')
                     .fillColor('#808080')
                     .text(
-                        `Case reference no.:         ${json.meta.caseReference}        Submitted on:        ${date}`,
+                        `Case reference number:         ${json.meta.caseReference}        Submitted on:        ${date}`,
                         0,
                         document.page.height - 25,
                         {
