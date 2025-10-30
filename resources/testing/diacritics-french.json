@@ -1,0 +1,66 @@
+{
+    "meta": {
+        "caseReference": "23\\800001",
+        "submittedDate": "2025-01-27T12:00:00.000Z"
+    },
+    "themes": [
+        {
+            "type": "theme",
+            "id": "about-application",
+            "title": "À propos de la demande",
+            "values": [
+                {
+                    "id": "q-applicant-fatal-claim",
+                    "type": "simple",
+                    "label": "Demande funéraire?",
+                    "value": false,
+                    "valueLabel": "Non",
+                    "theme": "about-application"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "applicant-details",
+            "title": "Vos détails",
+            "values": [
+                {
+                    "id": "q-applicant-name",
+                    "type": "simple",
+                    "label": "Nom complet",
+                    "value": "François Lefèvre-Château",
+                    "valueLabel": "François Lefèvre-Château",
+                    "theme": "applicant-details"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "crime",
+            "title": "À propos du crime",
+            "values": [
+                {
+                    "id": "q-applicant-did-the-crime-happen-once-or-over-time",
+                    "type": "simple",
+                    "value": "once",
+                    "valueLabel": "Une fois",
+                    "theme": "crime"
+                },
+                {
+                    "id": "q-crime-description",
+                    "type": "simple",
+                    "label": "Description",
+                    "value": "Événement à Côte d'Azur, près de Montréal",
+                    "valueLabel": "Événement à Côte d'Azur, près de Montréal",
+                    "theme": "crime"
+                }
+            ]
+        }
+    ],
+    "declaration": {
+        "type": "simple",
+        "label": "<div id=\"declaration\"><p>Je déclare que les informations sont vraies.</p></div>",
+        "value": "i-agree",
+        "valueLabel": "J'accepte la déclaration"
+    }
+}

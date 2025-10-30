@@ -10,6 +10,7 @@
         "start:dev": "nodemon -L -e .js,.json,.njk,.yml  --exec npm run build:run:dev",
         "build:run:dev": "node --inspect=0.0.0.0:9229 ./bin/www",
         "test": "jest",
+        "test:pdf": "node ./services/pdf/manual-pdf-test.js",
         "coverage": "jest --coverage",
         "dump-eslint-conf": "eslint --print-config ./app.js > ./stuff/eslint-conf.json",
         "lint": "eslint .",

@@ -1,0 +1,682 @@
+{
+    "meta": {
+        "caseReference": "19\\751194",
+        "answers": {
+            "origin": {
+                "channel": "web"
+            },
+            "p-applicant-declaration": {
+                "q-applicant-declaration": "i-agree"
+            },
+            "p-applicant-additional-information": {
+                "q-applicant-additional-information": "Z powodu długotrwałego procesu karnego oraz braku wiedzy na temat składania tego typu wniosków  gdyż nigdy tego nie robiłem i jest to pierwszy raz. Nikt z prowadzących sprawę niepoinformowal mnie ze mam do tego prawo i jak to zrobić. Oczekiwałem na wyrok sędziego który wyznaczył moim zdaniem niewspółmierny wyrok co do mojego uszczerbku na zdrowiu Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum maximus justo ut justo malesuada commodo. Aliquam nec tellus ex. Morbi finibus nibh nisl, eget rhoncus ante convallis in. Vivamus egestas nulla sed nisi facilisis, a imperdiet eros facilisis. Sed ut scelerisque ante. Nullam ut magna tellus. Sed eleifend rutrum dui, sit amet venenatis turpis. Pellentesque a mi justo. Nulla massa ex, dictum sed sapien at, tempus egestas massa. Fusce ipsum ligula, luctus eget viverra eu, elementum eget dolor.\n\n• Officer in Charge:  Foo Testcase 123456   \n• Court and date sentenced:  Kirkcaldy Sherrif Court. 19/06/2025.  \n• Offences:  Stole some HTML   \n• Crime Reference No (Unique Reference No.): 12AB3456789\n• Date offender first interviewed: 20/06/2025 \n• Date i was interviewed: 03/09/1987\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum maximus justo ut justo malesuada commodo. Aliquam nec tellus ex. Morbi finibus nibh nisl, eget rhoncus ante convallis in. Vivamus egestas nulla sed nisi facilisis, a imperdiet eros facilisis. Sed ut scelerisque ante. Nullam ut magna tellus. Sed eleifend rutrum dui, sit amet venenatis turpis. Pellentesque a mi justo. Nulla massa ex, dictum sed sapien at, tempus egestas massa. Fusce ipsum ligula, luctus eget viverra eu, elementum eget dolor."
+            },
+            "p--check-your-answers": {},
+            "p-applicant-enter-your-telephone-number": {},
+            "p-applicant-medical-help": {
+                "q-applicant-medical-help": false
+            },
+            "p-applicant-pregnancy-loss": {
+                "q-applicant-pregnancy-loss": "no"
+            },
+            "p-applicant-you-cannot-get-compensation": {},
+            "p-applicant-infections": {
+                "q-applicant-infections": "no"
+            },
+            "p-applicant-affect-on-daily-life-dmi": {
+                "q-applicant-affect-on-daily-life-dmi": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum maximus justo ut justo malesuada commodo. Aliquam nec tellus ex. Morbi finibus nibh nisl, eget rhoncus ante convallis in. Vivamus egestas nulla sed nisi facilisis, a imperdiet eros facilisis. Sed ut scelerisque ante. Nullam ut magna tellus. Sed eleifend rutrum dui, sit amet venenatis turpis. Pellentesque a mi justo. Nulla massa ex, dictum sed sapien at, tempus egestas massa. Fusce ipsum ligula, luctus eget viverra eu, elementum eget dolor.\n\n• Officer in Charge:  Foo Testcase 123456   \n• Court and date sentenced:  Kirkcaldy Sherrif Court. 19/06/2025.  \n• Offences:  Stole some HTML   \n• Crime Reference No (Unique Reference No.): 12AB3456789\n• Date offender first interviewed: 20/06/2025 \n• Date i was interviewed: 03/09/1987\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum maximus justo ut justo malesuada commodo. Aliquam nec tellus ex. Morbi finibus nibh nisl, eget rhoncus ante convallis in. Vivamus egestas nulla sed nisi facilisis, a imperdiet eros facilisis. Sed ut scelerisque ante. Nullam ut magna tellus. Sed eleifend rutrum dui, sit amet venenatis turpis. Pellentesque a mi justo. Nulla massa ex, dictum sed sapien at, tempus egestas massa. Fusce ipsum ligula, luctus eget viverra eu, elementum eget dolor."
+            },
+            "owner": {
+                "owner-id": "urn:uuid:6da43a1e-8d35-4896-bded-d643d0d20d5e",
+                "is-authenticated": false
+            },
+            "p--context-pregnancy": {},
+            "p-applicant-when-did-the-crime-happen": {
+                "q-applicant-when-did-the-crime-happen": "2025-01-01T00:00:00.000Z"
+            },
+            "p--context-residency-and-nationality": {},
+            "p-applicant-applied-before-for-this-crime": {
+                "q-applicant-applied-before-for-this-crime": false
+            },
+            "p-applicant-british-citizen-relative": {
+                "q-applicant-british-citizen-relative": true
+            },
+            "p-applicant-enter-your-name": {
+                "q-applicant-title": "Mr",
+                "q-applicant-first-name": "Foo",
+                "q-applicant-last-name": "Bar"
+            },
+            "p-applicant-have-you-been-known-by-any-other-names": {
+                "q-applicant-have-you-been-known-by-any-other-names": false
+            },
+            "p-applicant-have-you-seen-a-gp": {
+                "q-applicant-have-you-seen-a-gp": false
+            },
+            "p--context-injuries-not-eligible": {},
+            "p--context-additional-info": {},
+            "system": {
+                "external-id": "urn:uuid:a9770c53-2008-4236-b383-f2a4cf0e7306",
+                "env": "dev",
+                "case-reference": "19\\751194"
+            },
+            "p-applicant-are-you-18-or-over": {
+                "q-applicant-are-you-18-or-over": true
+            },
+            "p-applicant-work-details-option": {
+                "q-applicant-work-details-option": ["education"]
+            },
+            "p--context-applicant-details": {},
+            "p--was-the-crime-reported-to-police": {
+                "q--was-the-crime-reported-to-police": false
+            },
+            "p-applicant-have-you-applied-for-or-received-any-other-compensation": {
+                "q-applicant-have-you-applied-for-or-received-any-other-compensation": false
+            },
+            "p-applicant-unable-to-work": {
+                "q-applicant-unable-to-work": false
+            },
+            "p-applicant-provide-additional-information": {
+                "q-applicant-provide-additional-information": true
+            },
+            "p--context-physical-injuries": {},
+            "p-applicant-job-when-crime-happened": {
+                "q-applicant-job-when-crime-happened": false
+            },
+            "p-applicant-applied-for-other-compensation-briefly-explain-why-not": {
+                "q-applicant-applied-for-other-compensation-briefly-explain-why-not": "dolor.\n\n• Officer in Charge:  Foo Testcase 123456   \n• Court and date sentenced:  Kirkcaldy Sherrif Court. 19/06/2025.  \n• Offences:  Stole some HTML   \n• Crime Reference No (Unique Reference No.): 12AB3456789\n• Date offender first interviewed: 20/06/2025 \n• Date i was interviewed: 03/09/1987\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum maximus justo ut justo malesuada commodo. Aliquam nec tellus ex. Morbi"
+            },
+            "p-applicant-enter-your-address": {
+                "q-applicant-postcode": "G2 8JQ",
+                "q-applicant-building-and-street": "Building name",
+                "q-applicant-building-and-street-2": "Street name",
+                "q-applicant-town-or-city": "Glasgow"
+            },
+            "p--context-dmi-details": {},
+            "p-applicant-someone-else-applied-before-for-this-crime": {
+                "q-applicant-someone-else-applied-before-for-this-crime": "no"
+            },
+            "p-applicant-who-are-you-applying-for": {
+                "q-applicant-who-are-you-applying-for": "myself"
+            },
+            "p-applicant-have-you-applied-to-us-before": {
+                "q-applicant-have-you-applied-to-us-before": false
+            },
+            "p--context-treatment": {},
+            "p-applicant-did-the-crime-happen-once-or-over-time": {
+                "q-applicant-did-the-crime-happen-once-or-over-time": "once"
+            },
+            "p-applicant-british-citizen": {
+                "q-applicant-british-citizen": false
+            },
+            "p-offender-do-you-know-the-name-of-the-offender": {
+                "q-offender-do-you-know-the-name-of-the-offender": false
+            },
+            "p-applicant-fatal-claim": {
+                "q-applicant-fatal-claim": false
+            },
+            "p-applicant-enter-your-date-of-birth": {
+                "q-applicant-enter-your-date-of-birth": "1987-01-01T00:00:00.000Z"
+            },
+            "p-applicant-incident-type": {
+                "q-applicant-incident-type": ["PHYS"]
+            },
+            "p-applicant-confirmation-method": {
+                "q-applicant-confirmation-method": "email",
+                "q-applicant-enter-your-email-address": "foobar@bar.baz"
+            },
+            "p-applicant-incident-description": {
+                "q-applicant-incident-description": "incident-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum maximus justo ut justo malesuada commodo. Aliquam nec tellus ex. Morbi finibus nibh nisl, eget rhoncus ante convallis in. Vivamus egestas nulla sed nisi facilisis, a imperdiet eros facilisis. Sed ut scelerisque ante. Nullam ut magna tellus. Sed eleifend rutrum dui, sit amet venenatis turpis. Pellentesque a mi justo. Nulla massa ex, dictum sed sapien at, tempus egestas massa. Fusce ipsum ligula, luctus eget viverra eu, elementum eget dolor.\n\n• Officer in Charge:  Foo Testcase 123456   \n• Court and date sentenced:  Kirkcaldy Sherrif Court. 19/06/2025.  \n• Offences:  Stole some HTML   \n• Crime Reference No (Unique Reference No.): 12AB3456789\n• Date offender first interviewed: 20/06/2025 \n• Date i was interviewed: 03/09/1987\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum maximus justo ut justo malesuada commodo. Aliquam nec tellus ex. Morbi finibus nibh nisl, eget rhoncus ante convallis in. Vivamus egestas nulla sed nisi facilisis, a imperdiet eros facilisis. Sed ut scelerisque ante. Nullam ut magna tellus. Sed eleifend rutrum dui, sit amet venenatis turpis. Pellentesque a mi justo. Nulla massa ex, dictum sed sapien at, tempus egestas massa. Fusce ipsum ligula, luctus eget viverra eu, elementum eget dolor."
+            },
+            "p-applicant-do-you-have-disabling-mental-injury": {
+                "q-applicant-do-you-have-disabling-mental-injury": false
+            },
+            "p-applicant-where-did-the-crime-happen": {
+                "q-applicant-where-did-the-crime-happen": "scotland"
+            },
+            "p--context-compensation": {},
+            "p-applicant-are-you-registered-with-gp": {
+                "q-applicant-are-you-registered-with-gp": false
+            },
+            "p-applicant-are-you-claiming-for-physical-injuries": {
+                "q-applicant-are-you-claiming-for-physical-injuries": false
+            },
+            "p--context-crime-impact": {},
+            "p--before-you-continue": {},
+            "p-applicant-describe-incident": {
+                "q-applicant-describe-incident": true
+            },
+            "p--context-offender": {},
+            "p-applicant-where-in-scotland-did-it-happen": {
+                "q-applicant-scottish-town-or-city": "dfdsf - ßæøđħŧ",
+                "q-applicant-scottish-location": "sdfsdf - ÄÖÜäöü"
+            }
+        },
+        "channel": "web",
+        "owner": {
+            "ownerId": "urn:uuid:6da43a1e-8d35-4896-bded-d643d0d20d5e",
+            "isAuthenticated": false
+        },
+        "submittedDate": "2023-07-19T23:00:00.000Z"
+    },
+    "themes": [
+        {
+            "type": "theme",
+            "id": "about-application",
+            "title": "About your application",
+            "values": [
+                {
+                    "id": "q-applicant-who-are-you-applying-for",
+                    "type": "simple",
+                    "label": "Who are you applying for?",
+                    "value": "myself",
+                    "valueLabel": "Myself",
+                    "sectionId": "p-applicant-who-are-you-applying-for",
+                    "theme": "about-application",
+                    "meta": {
+                        "integration": {
+                            "hideOnSummary": true
+                        }
+                    }
+                },
+                {
+                    "id": "q-applicant-are-you-18-or-over",
+                    "type": "simple",
+                    "label": "Are you 18 or over?",
+                    "value": true,
+                    "valueLabel": "Yes",
+                    "sectionId": "p-applicant-are-you-18-or-over",
+                    "theme": "about-application"
+                },
+                {
+                    "id": "q--was-the-crime-reported-to-police",
+                    "type": "simple",
+                    "label": "Was the crime reported to the police?",
+                    "value": false,
+                    "valueLabel": "No",
+                    "sectionId": "p--was-the-crime-reported-to-police",
+                    "theme": "about-application"
+                },
+                {
+                    "id": "q-applicant-fatal-claim",
+                    "type": "simple",
+                    "label": "Select why you are applying",
+                    "value": false,
+                    "valueLabel": "I am applying because I was the victim of a violent crime",
+                    "sectionId": "p-applicant-fatal-claim",
+                    "theme": "about-application",
+                    "meta": {
+                        "integration": {
+                            "hideOnSummary": true
+                        }
+                    }
+                },
+                {
+                    "id": "q-applicant-applied-before-for-this-crime",
+                    "type": "simple",
+                    "label": "Have you applied before, for injuries related to this crime?",
+                    "value": false,
+                    "valueLabel": "No",
+                    "sectionId": "p-applicant-applied-before-for-this-crime",
+                    "theme": "about-application"
+                },
+                {
+                    "id": "q-applicant-someone-else-applied-before-for-this-crime",
+                    "type": "simple",
+                    "label": "Has anyone applied on your behalf, for injuries related to this crime?",
+                    "value": "no",
+                    "valueLabel": "No",
+                    "sectionId": "p-applicant-someone-else-applied-before-for-this-crime",
+                    "theme": "about-application"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "applicant-details",
+            "title": "Your details",
+            "values": [
+                {
+                    "id": "q-applicant-confirmation-method",
+                    "type": "simple",
+                    "label": "Confirmation method",
+                    "value": "email",
+                    "valueLabel": "Email",
+                    "sectionId": "p-applicant-confirmation-method",
+                    "theme": "applicant-details"
+                },
+                {
+                    "id": "q-applicant-enter-your-email-address",
+                    "type": "simple",
+                    "label": "Email address",
+                    "value": "foo@bar.baz",
+                    "sectionId": "p-applicant-confirmation-method",
+                    "theme": "applicant-details",
+                    "format": {
+                        "value": "email"
+                    }
+                },
+                {
+                    "id": "applicant-name",
+                    "type": "composite",
+                    "label": "Your name",
+                    "values": [
+                        {
+                            "id": "q-applicant-title",
+                            "type": "simple",
+                            "label": "Title",
+                            "value": "Mr",
+                            "sectionId": "p-applicant-enter-your-name",
+                            "theme": "applicant-details"
+                        },
+                        {
+                            "id": "q-applicant-first-name",
+                            "type": "simple",
+                            "label": "First name",
+                            "value": "Foo",
+                            "sectionId": "p-applicant-enter-your-name",
+                            "theme": "applicant-details"
+                        },
+                        {
+                            "id": "q-applicant-last-name",
+                            "type": "simple",
+                            "label": "Last name",
+                            "value": "Bar",
+                            "sectionId": "p-applicant-enter-your-name",
+                            "theme": "applicant-details"
+                        }
+                    ],
+                    "sectionId": "p-applicant-enter-your-name",
+                    "theme": "applicant-details"
+                },
+                {
+                    "id": "q-applicant-have-you-been-known-by-any-other-names",
+                    "type": "simple",
+                    "label": "Have you ever been known by any other names?",
+                    "value": false,
+                    "valueLabel": "No",
+                    "sectionId": "p-applicant-have-you-been-known-by-any-other-names",
+                    "theme": "applicant-details"
+                },
+                {
+                    "id": "q-applicant-enter-your-date-of-birth",
+                    "type": "simple",
+                    "label": "Date of birth",
+                    "value": "1987-01-01T00:00:00.000Z",
+                    "sectionId": "p-applicant-enter-your-date-of-birth",
+                    "theme": "applicant-details",
+                    "format": {
+                        "value": "date-time",
+                        "precision": "YYYY-MM-DD"
+                    }
+                },
+                {
+                    "id": "applicant-address",
+                    "type": "composite",
+                    "label": "Your address",
+                    "values": [
+                        {
+                            "id": "q-applicant-building-and-street",
+                            "type": "simple",
+                            "label": "Address line 1",
+                            "value": "Building name",
+                            "sectionId": "p-applicant-enter-your-address",
+                            "theme": "applicant-details"
+                        },
+                        {
+                            "id": "q-applicant-building-and-street-2",
+                            "type": "simple",
+                            "label": "Address line 2 (optional)",
+                            "value": "Street name",
+                            "sectionId": "p-applicant-enter-your-address",
+                            "theme": "applicant-details"
+                        },
+                        {
+                            "id": "q-applicant-town-or-city",
+                            "type": "simple",
+                            "label": "Town or city",
+                            "value": "Glasgow",
+                            "sectionId": "p-applicant-enter-your-address",
+                            "theme": "applicant-details"
+                        },
+                        {
+                            "id": "q-applicant-postcode",
+                            "type": "simple",
+                            "label": "Postcode",
+                            "value": "G2 8JQ",
+                            "sectionId": "p-applicant-enter-your-address",
+                            "theme": "applicant-details"
+                        }
+                    ],
+                    "sectionId": "p-applicant-enter-your-address",
+                    "theme": "applicant-details"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "residency-and-nationality",
+            "title": "About your residency and nationality",
+            "values": [
+                {
+                    "id": "q-applicant-british-citizen",
+                    "type": "simple",
+                    "label": "Were you a British citizen when the crime happened?",
+                    "value": false,
+                    "valueLabel": "No",
+                    "sectionId": "p-applicant-british-citizen",
+                    "theme": "residency-and-nationality"
+                },
+                {
+                    "id": "q-applicant-british-citizen-relative",
+                    "type": "simple",
+                    "label": "Were you a close relative of a British citizen when the crime happened?",
+                    "value": true,
+                    "valueLabel": "Yes",
+                    "sectionId": "p-applicant-british-citizen-relative",
+                    "theme": "residency-and-nationality"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "crime",
+            "title": "About the crime",
+            "values": [
+                {
+                    "id": "q-applicant-did-the-crime-happen-once-or-over-time",
+                    "type": "simple",
+                    "label": "Did the crime happen once or over a period of time?",
+                    "value": "once",
+                    "valueLabel": "Once",
+                    "sectionId": "p-applicant-did-the-crime-happen-once-or-over-time",
+                    "theme": "crime"
+                },
+                {
+                    "id": "q-applicant-when-did-the-crime-happen",
+                    "type": "simple",
+                    "label": "When did the crime happen?",
+                    "value": "2025-01-01T00:00:00.000Z",
+                    "sectionId": "p-applicant-when-did-the-crime-happen",
+                    "theme": "crime",
+                    "format": {
+                        "value": "date-time",
+                        "precision": "YYYY-MM-DD"
+                    }
+                },
+                {
+                    "id": "q-applicant-where-did-the-crime-happen",
+                    "type": "simple",
+                    "label": "Where did the crime happen?",
+                    "value": "scotland",
+                    "valueLabel": "Scotland",
+                    "sectionId": "p-applicant-where-did-the-crime-happen",
+                    "theme": "crime"
+                },
+                {
+                    "id": "crime-location-scotland",
+                    "type": "composite",
+                    "label": "Where in Scotland did the crime happen?",
+                    "values": [
+                        {
+                            "id": "q-applicant-scottish-town-or-city",
+                            "type": "simple",
+                            "label": "Town or city",
+                            "value": "dfdsf ~ ÄÖÜäöü",
+                            "sectionId": "p-applicant-where-in-scotland-did-it-happen",
+                            "theme": "crime"
+                        },
+                        {
+                            "id": "q-applicant-scottish-location",
+                            "type": "simple",
+                            "label": "Location",
+                            "value": "sdfsdf ~ ßæøđħŧ",
+                            "sectionId": "p-applicant-where-in-scotland-did-it-happen",
+                            "theme": "crime"
+                        }
+                    ],
+                    "sectionId": "p-applicant-where-in-scotland-did-it-happen",
+                    "theme": "crime"
+                },
+                {
+                    "id": "q-applicant-incident-type",
+                    "type": "simple",
+                    "label": "What led to your injuries?",
+                    "value": ["PHYS"],
+                    "valueLabel": ["Physical assault"],
+                    "sectionId": "p-applicant-incident-type",
+                    "theme": "crime"
+                },
+                {
+                    "id": "q-applicant-describe-incident",
+                    "type": "simple",
+                    "label": "Do you want to describe the crime?",
+                    "value": true,
+                    "valueLabel": "Yes",
+                    "sectionId": "p-applicant-describe-incident",
+                    "theme": "crime"
+                },
+                {
+                    "id": "q-applicant-incident-description",
+                    "type": "simple",
+                    "label": "Brief description of the crime",
+                    "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum maximus justo ut justo malesuada commodo. Aliquam nec tellus ex. Morbi finibus nibh nisl, eget rhoncus ante convallis in. Vivamus egestas nulla sed nisi facilisis, a imperdiet eros facilisis. Sed ut scelerisque ante. Nullam ut magna tellus. Sed eleifend rutrum dui, sit amet venenatis turpis. Pellentesque a mi justo. Nulla massa ex, dictum sed sapien at, tempus egestas massa. Fusce ipsum ligula, luctus eget viverra eu, elementum eget dolor.\n\n• Officer in Charge:  Foo Testcase 123456   \n• Court and date sentenced:  Kirkcaldy Sherrif Court. 19/06/2025.  \n• Offences:  Stole some HTML   \n• Crime Reference No (Unique Reference No.): 12AB3456789\n• Date offender first interviewed: 20/06/2025 \n• Date i was interviewed: 03/09/1987\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum maximus justo ut justo malesuada commodo. Aliquam nec tellus ex. Morbi finibus nibh nisl, eget rhoncus ante convallis in. Vivamus egestas nulla sed nisi facilisis, a imperdiet eros facilisis. Sed ut scelerisque ante. Nullam ut magna tellus. Sed eleifend rutrum dui, sit amet venenatis turpis. Pellentesque a mi justo. Nulla massa ex, dictum sed sapien at, tempus egestas massa. Fusce ipsum ligula, luctus eget viverra eu, elementum eget dolor.",
+                    "sectionId": "p-applicant-incident-description",
+                    "theme": "crime"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "offender",
+            "title": "About the offender",
+            "values": [
+                {
+                    "id": "q-offender-do-you-know-the-name-of-the-offender",
+                    "type": "simple",
+                    "label": "Do you know the offender's name?",
+                    "value": false,
+                    "valueLabel": "No",
+                    "sectionId": "p-offender-do-you-know-the-name-of-the-offender",
+                    "theme": "offender"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "injuries",
+            "title": "Your injuries",
+            "values": [
+                {
+                    "id": "q-applicant-are-you-claiming-for-physical-injuries",
+                    "type": "simple",
+                    "label": "Do you have physical injuries?",
+                    "value": false,
+                    "valueLabel": "No",
+                    "sectionId": "p-applicant-are-you-claiming-for-physical-injuries",
+                    "theme": "injuries"
+                },
+                {
+                    "id": "q-applicant-infections",
+                    "type": "simple",
+                    "label": "Did you get any infections?",
+                    "value": "no",
+                    "valueLabel": "No",
+                    "sectionId": "p-applicant-infections",
+                    "theme": "injuries"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "pregnancy",
+            "title": "Pregnancy",
+            "values": [
+                {
+                    "id": "q-applicant-pregnancy-loss",
+                    "type": "simple",
+                    "label": "Did you lose a pregnancy?",
+                    "value": "no",
+                    "valueLabel": "No",
+                    "sectionId": "p-applicant-pregnancy-loss",
+                    "theme": "pregnancy"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "mental-health",
+            "title": "Your mental health",
+            "values": [
+                {
+                    "id": "q-applicant-do-you-have-disabling-mental-injury",
+                    "type": "simple",
+                    "label": "Have you had a disabling mental injury?",
+                    "value": false,
+                    "valueLabel": "No",
+                    "sectionId": "p-applicant-do-you-have-disabling-mental-injury",
+                    "theme": "mental-health"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "impact",
+            "title": "The impact the injuries have had",
+            "values": [
+                {
+                    "id": "q-applicant-job-when-crime-happened",
+                    "type": "simple",
+                    "label": "Did you have a job when the crime happened?",
+                    "value": false,
+                    "valueLabel": "No",
+                    "sectionId": "p-applicant-job-when-crime-happened",
+                    "theme": "impact"
+                },
+                {
+                    "id": "q-applicant-work-details-option",
+                    "type": "simple",
+                    "label": "Reason for not having a job",
+                    "value": ["education"],
+                    "valueLabel": ["At school, college or university"],
+                    "sectionId": "p-applicant-work-details-option",
+                    "theme": "impact"
+                },
+                {
+                    "id": "q-applicant-unable-to-work",
+                    "type": "simple",
+                    "label": "Do you have limited capacity to work?",
+                    "value": false,
+                    "valueLabel": "No",
+                    "sectionId": "p-applicant-unable-to-work",
+                    "theme": "impact"
+                },
+                {
+                    "id": "q-applicant-affect-on-daily-life-dmi",
+                    "type": "simple",
+                    "label": "How your injuries have affected your daily life",
+                    "value": "ßæøđħŧ ÄÖÜäöü Z powodu długotrwałego procesu karnego oraz braku wiedzy na temat składania tego typu wniosków  gdyż nigdy tego nie robiłem i jest to pierwszy raz. Nikt z prowadzących sprawę niepoinformowal mnie ze mam do tego prawo i jak to zrobić. Oczekiwałem na wyrok sędziego który wyznaczył moim zdaniem niewspółmierny wyrok co do mojego uszczerbku na zdrowiu   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum maximus justo ut justo malesuada commodo. Aliquam nec tellus ex. Morbi finibus nibh nisl, eget rhoncus ante convallis in. Vivamus egestas nulla sed nisi facilisis, a imperdiet eros facilisis. Sed ut scelerisque ante. Nullam ut magna tellus. Sed eleifend rutrum dui, sit amet venenatis turpis. Pellentesque a mi justo. Nulla massa ex, dictum sed sapien at, tempus egestas massa. Fusce ipsum ligula, luctus eget viverra eu, elementum eget dolor.\n\n• Officer in Charge:  Foo Testcase 123456   \n• Court and date sentenced:  Kirkcaldy Sherrif Court. 19/06/2025.  \n• Offences:  Stole some HTML   \n• Crime Reference No (Unique Reference No.): 12AB3456789\n• Date offender first interviewed: 20/06/2025 \n• Date i was interviewed: 03/09/1987\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum maximus justo ut justo malesuada commodo. Aliquam nec tellus ex. Morbi finibus nibh nisl, eget rhoncus ante convallis in. Vivamus egestas nulla sed nisi facilisis, a imperdiet eros facilisis. Sed ut scelerisque ante. Nullam ut magna tellus. Sed eleifend rutrum dui, sit amet venenatis turpis. Pellentesque a mi justo. Nulla massa ex, dictum sed sapien at, tempus egestas massa. Fusce ipsum ligula, luctus eget viverra eu, elementum eget dolor.",
+                    "sectionId": "p-applicant-affect-on-daily-life-dmi",
+                    "theme": "impact"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "treatment",
+            "title": "Your treatment",
+            "values": [
+                {
+                    "id": "q-applicant-are-you-registered-with-gp",
+                    "type": "simple",
+                    "label": "Are you registered with a GP practice?",
+                    "value": false,
+                    "valueLabel": "No",
+                    "sectionId": "p-applicant-are-you-registered-with-gp",
+                    "theme": "treatment"
+                },
+                {
+                    "id": "q-applicant-have-you-seen-a-gp",
+                    "type": "simple",
+                    "label": "Have you seen a GP about your injuries?",
+                    "value": false,
+                    "valueLabel": "No",
+                    "sectionId": "p-applicant-have-you-seen-a-gp",
+                    "theme": "treatment"
+                },
+                {
+                    "id": "q-applicant-medical-help",
+                    "type": "simple",
+                    "label": "Have you seen any other medical professionals?",
+                    "value": false,
+                    "valueLabel": "No",
+                    "sectionId": "p-applicant-medical-help",
+                    "theme": "treatment"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "other-compensation",
+            "title": "Other compensation",
+            "values": [
+                {
+                    "id": "q-applicant-have-you-applied-to-us-before",
+                    "type": "simple",
+                    "label": "Have you applied to us before in connection with any other crime?",
+                    "value": false,
+                    "valueLabel": "No",
+                    "sectionId": "p-applicant-have-you-applied-to-us-before",
+                    "theme": "other-compensation"
+                },
+                {
+                    "id": "q-applicant-have-you-applied-for-or-received-any-other-compensation",
+                    "type": "simple",
+                    "label": "Have you applied for or received any other form of compensation or damages?",
+                    "value": false,
+                    "valueLabel": "No",
+                    "sectionId": "p-applicant-have-you-applied-for-or-received-any-other-compensation",
+                    "theme": "other-compensation"
+                },
+                {
+                    "id": "q-applicant-applied-for-other-compensation-briefly-explain-why-not",
+                    "type": "simple",
+                    "label": "Tell us why you have not applied for or received any other compensation or damages",
+                    "value": "dolor.\n\n• Officer in Charge:  Foo Testcase 123456   \n• Court and date sentenced:  Kirkcaldy Sherrif Court. 19/06/2025.  \n• Offences:  Stole some HTML   \n• Crime Reference No (Unique Reference No.): 12AB3456789\n• Date offender first interviewed: 20/06/2025 \n• Date i was interviewed: 03/09/1987\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum maximus justo ut justo malesuada commodo. Aliquam nec tellus ex. Morbi",
+                    "sectionId": "p-applicant-applied-for-other-compensation-briefly-explain-why-not",
+                    "theme": "other-compensation"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "additional-info",
+            "title": "Additional information",
+            "values": [
+                {
+                    "id": "q-applicant-provide-additional-information",
+                    "type": "simple",
+                    "label": "Would you like to add any information?",
+                    "value": true,
+                    "valueLabel": "Yes",
+                    "sectionId": "p-applicant-provide-additional-information",
+                    "theme": "additional-info"
+                },
+                {
+                    "id": "q-applicant-additional-information",
+                    "type": "simple",
+                    "label": "Additional information",
+                    "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum maximus justo ut justo malesuada commodo. Aliquam nec tellus ex. Morbi finibus nibh nisl, eget rhoncus ante convallis in. Vivamus egestas nulla sed nisi facilisis, a imperdiet eros facilisis. Sed ut scelerisque ante. Nullam ut magna tellus. Sed eleifend rutrum dui, sit amet venenatis turpis. Pellentesque a mi justo. Nulla massa ex, dictum sed sapien at, tempus egestas massa. Fusce ipsum ligula, luctus eget viverra eu, elementum eget dolor.\n\n• Officer in Charge:  Foo Testcase 123456   \n• Court and date sentenced:  Kirkcaldy Sherrif Court. 19/06/2025.  \n• Offences:  Stole some HTML   \n• Crime Reference No (Unique Reference No.): 12AB3456789\n• Date offender first interviewed: 20/06/2025 \n• Date i was interviewed: 03/09/1987\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum maximus justo ut justo malesuada commodo. Aliquam nec tellus ex. Morbi finibus nibh nisl, eget rhoncus ante convallis in. Vivamus egestas nulla sed nisi facilisis, a imperdiet eros facilisis. Sed ut scelerisque ante. Nullam ut magna tellus. Sed eleifend rutrum dui, sit amet venenatis turpis. Pellentesque a mi justo. Nulla massa ex, dictum sed sapien at, tempus egestas massa. Fusce ipsum ligula, luctus eget viverra eu, elementum eget dolor.",
+                    "sectionId": "p-applicant-additional-information",
+                    "theme": "additional-info"
+                }
+            ]
+        }
+    ],
+    "declaration": {
+        "type": "simple",
+        "id": "p-applicant-declaration",
+        "label": "<div id=\"declaration\"> <p class=\"govuk-body\"> You have told us that you are Mr Foo Bar and you are applying on behalf of yourself.</p> <p class=\"govuk-body\">By submitting this application, you confirm that you understand the following:</p> <ul class=\"govuk-list govuk-list--bullet\"> <li>the information given in this application for compensation is true</li> <li>Criminal Injuries Compensation Authority (CICA) may share and receive information with the following parties for the purposes of processing this application for compensation or verifying information provided:</li> <ul> <li>police, prosecutors and ACRO Criminal Records Office, including for the purposes of obtaining a report of the crime and a record of any criminal convictions you may have</li> <li>medical organisations, practitioners, and police medical staff to obtain medical evidence - including medical records and expert reports. CICA will let you know if this is required</li> <li>any other individuals or organisations where necessary to process this application</li> <li>any representative appointed to act for you in the course of this application</li> </ul> <li>CICA must be notified immediately of any change in circumstances relevant to this application, including any change of address and information about any other claim or proceedings which may give rise to a separate award or payment in respect of your injuries</li> </ul> <h2 class=\"govuk-heading-m\">Providing wrong or misleading information</h2> <p class=\"govuk-body\">If untrue or misleading information is deliberately provided, compensation may be refused and the person(s) responsible may be prosecuted.</p> <p class=\"govuk-body\">Read our privacy notice to see <a href=\"https://www.gov.uk/guidance/cica-privacy-notice\" class=\"govuk-link\" target=\"_blank\">how we use your data (opens in new tab)</a>. </p> <h2 class=\"govuk-heading-m\">Information about appointing a legal or another representative</h2> <p class=\"govuk-body\">It is not necessary to appoint a legal or other representative to act on a victim’s behalf. If a representative is appointed at any stage, please be aware that:</p> <ul class=\"govuk-list govuk-list--bullet\"> <li>CICA cannot meet their costs </li> <li>we will only communicate directly with any appointed representative</li> </ul> <p class=\"govuk-body\">If we make an award, we will pay it only to the victim or their legal representative. This is unless the application has been made on behalf of:</p> <ul class=\"govuk-list govuk-list--bullet\"> <li>an adult who cannot manage their own financial affairs</li> <li>a child who is under 18 years of age</li> </ul> <p class=\"govuk-body\"> It is our general policy to put an award for a child in an interest-earning deposit account until they reach the age of 18.</p> <p class=\"govuk-body\"> If a monetary award is to be made and there is a dispute about outstanding legal fees, it is our policy to retain the disputed amount until the dispute has been resolved.</p> <p class=\"govuk-body\"> If it is decided that a representative’s services are no longer required, CICA must be notified in writing as soon as possible.</p> </div>",
+        "value": "i-agree",
+        "valueLabel": "I have read and understood the declaration"
+    }
+}

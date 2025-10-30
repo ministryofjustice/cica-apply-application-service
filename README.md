@@ -18,6 +18,7 @@ The project source includes the following directories:
 - `services/sqs` - Supports integration with AWS SQS.
 - `services/logging` - Supports logging out to std out.
 - `services/pdf` - Supports PDF generation capabilities using PDF Kit.
+- `services/pdf/fonts/` - Directory containing Noto Sans font to override default font in PDF kit. Noto Sans font added support for proper rendering of diacritical characters (e.g., ł, ą, ę, ć, ń, ó, ś, ź, ż, é, è, ê, ü, ö, å, etc.).
 
 
 # Requirements
@@ -67,3 +68,25 @@ To run all tests with test coverage, use:
 
 To run tests with a debugger attached, use the Run and Debug panel within VS code. The configurations for this can be adjusted in
 `.vscode/launch.json`
+
+****
+## Diacritical Character Testing
+
+### Test Coverage
+
+**Unit Tests** (`services/pdf/font-initialisation.test.js`):
+- Font initialization logic
+- Fallback behavior when fonts are unavailable
+- Path construction and error handling
+
+**Integration Tests** (`services/pdf/diacritics.test.js`):
+- PDF generation with Polish, French, German, Spanish, and Scandinavian characters
+- Composite questions with diacritics
+- HTML declarations with special characters
+
+**Manual Testing** (`services/pdf/manual-pdf-test.js`):
+- Generates sample PDFs for visual verification
+- **Note:** This is a standalone script, not will not run as part of `npm run test`. Its primary purpose is to assist with local development and ensure the fonts within the PDF are rendered correctly. Hence it serves no purpose being part of the pipeline tests
+- Uses test data from `resources/testing/polish-chars-test.json` and `resources/testing/diacritic-chars-test.json`
+- Run with: `node services/pdf/manual-pdf-test.js`
+- Outputs PDFs to `resources/temp/` for manual inspection

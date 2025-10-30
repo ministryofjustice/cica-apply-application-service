@@ -2,8 +2,56 @@
 
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
+const path = require('path');
 const cheerio = require('cheerio');
 const logger = require('../logging/logger');
+
+// Define default font configuration, by default PDFKit uses Helvetica
+const defaults = {
+    fontConfig: {
+        regular: 'Helvetica',
+        bold: 'Helvetica-Bold'
+    }
+};
+
+/**
+ * Initialises font configuration for PDF generation
+ * @param {Object} options - Configuration options
+ * @param {Object} options.fontConfig - Optional font configuration with full paths to fonts
+ * @returns {Object} Font configuration with regular and bold font paths
+ */
+function initialiseFonts({fontConfig = {}} = {}) {
+    logger.info('initialiseFonts called with fontConfig:', JSON.stringify(fontConfig));
+
+    const customConfig = {};
+
+    try {
+        if ('regular' in fontConfig && fs.existsSync(fontConfig.regular)) {
+            customConfig.regular = fontConfig.regular;
+        }
+    } catch (error) {
+        logger.info(
+            `Font check failed, using built-in default.regular "${defaults.fontConfig.regular}":`,
+            error.message
+        );
+    }
+
+    try {
+        if ('bold' in fontConfig && fs.existsSync(fontConfig.bold)) {
+            customConfig.bold = fontConfig.bold;
+        }
+    } catch (error) {
+        logger.info(
+            `Font check failed, using built-in default.bold "${defaults.fontConfig.bold}":`,
+            error.message
+        );
+    }
+
+    return {
+        ...defaults.fontConfig,
+        ...customConfig
+    };
+}
 
 /** Returns PDF Service object with a function to write a JSON to a PDF */
 function createPdfService() {
@@ -57,6 +105,17 @@ function createPdfService() {
      */
     async function writeJSONToPDF(json, pdfLoc) {
         return new Promise(res => {
+            const fonts = initialiseFonts({
+                fontConfig: {
+                    regular: path.join(__dirname, 'fonts/NotoSans-Regular.ttf'),
+                    bold: path.join(__dirname, 'fonts/NotoSans-Bold.ttf')
+                }
+            });
+
+            logger.info(
+                `PDF Generation - Using fonts: regular="${fonts.regular}", bold="${fonts.bold}"`
+            );
+
             // Initialise core PDF Document
             const pdfDocument = new PDFDocument({bufferPages: true});
             const stream = fs.createWriteStream(pdfLoc);
@@ -67,7 +126,7 @@ function createPdfService() {
              * @param {object} question - The sub question to write to the PDF
              */
             function addPDFSubquestion(question) {
-                pdfDocument.fontSize(12.5).font('Helvetica');
+                pdfDocument.fontSize(12.5).font(fonts.regular);
                 if (question.format && question.format.value === 'date-time') {
                     pdfDocument.text(
                         Intl.DateTimeFormat('en-GB').format(
@@ -79,12 +138,13 @@ function createPdfService() {
                     pdfDocument.text(question.valueLabel || question.value, {indent: 30});
                 }
             }
+
             /**
              * Writes all Subquestion answers from a single question to a single line in the PDF
              * @param {Array} questions - The array of subquestions
              */
             function addPDFSubquestions(questions) {
-                pdfDocument.fontSize(12.5).font('Helvetica');
+                pdfDocument.fontSize(12.5).font(fonts.regular);
                 const answers = questions.map(question => question.value);
                 pdfDocument.text(answers.join(' '));
             }
@@ -97,20 +157,20 @@ function createPdfService() {
                 if (question.id === 'q-applicant-physical-injuries') {
                     pdfDocument
                         .fontSize(12.5)
-                        .font('Helvetica-Bold')
+                        .font(fonts.bold)
                         .fillColor('#444444')
                         .text('Physical injuries')
-                        .font('Helvetica');
+                        .font(fonts.regular);
                     pdfDocument.text(question.valueLabel.join('\n'));
                     pdfDocument.moveDown();
                 } else if (question.type === 'simple') {
                     // If the question is simple then write the question to the PDF
                     pdfDocument
                         .fontSize(12.5)
-                        .font('Helvetica-Bold')
+                        .font(fonts.bold)
                         .fillColor('#444444')
                         .text(question.label)
-                        .font('Helvetica');
+                        .font(fonts.regular);
                     if (question.format && question.format.value === 'date-time') {
                         pdfDocument.text(
                             Intl.DateTimeFormat('en-GB').format(
@@ -127,7 +187,7 @@ function createPdfService() {
                     // Otherwise the question is composite, so write the question label and write each subquestion using addPDFSubquestion
                     pdfDocument
                         .fontSize(12.5)
-                        .font('Helvetica-Bold')
+                        .font(fonts.bold)
                         .fillColor('#444444')
                         .text(question.label);
                     if (question.id.includes('name')) {
@@ -147,7 +207,7 @@ function createPdfService() {
             function writeHeader() {
                 pdfDocument
                     .fontSize(10)
-                    .font('Helvetica')
+                    .font(fonts.regular)
                     .fillColor('#808080')
                     .text('Protect-Personal', {align: 'center'})
                     .image('./public/cicaLogo.png', 450, 80, {width: 80})
@@ -159,11 +219,11 @@ function createPdfService() {
                     .moveDown()
                     .fillColor('#444444')
                     .fontSize(25)
-                    .font('Helvetica-Bold')
+                    .font(fonts.bold)
                     .text('CICA Summary Application Form')
                     .fontSize(10)
                     .moveDown()
-                    .font('Helvetica')
+                    .font(fonts.regular)
                     .fillColor('#808080')
                     .text(
                         'This document provides a summary of the information supplied to CICA in your application form. Please contact us on 0300 003 3601 if you require any changes to be made.'
@@ -190,7 +250,7 @@ function createPdfService() {
                 }).format(new Date());
                 document
                     .fontSize(10)
-                    .font('Helvetica')
+                    .font(fonts.regular)
                     .fillColor('#808080')
                     .text(
                         `Case reference number:         ${json.meta.caseReference}        Submitted on:        ${date}`,
@@ -216,13 +276,14 @@ function createPdfService() {
 
                 pdfDocument
                     .fontSize(12.5)
-                    .font('Helvetica-Bold')
+                    .font(fonts.bold)
                     .fillColor('#444444')
                     .text('Application Type')
-                    .font('Helvetica');
+                    .font(fonts.regular);
                 pdfDocument.text(type);
                 pdfDocument.moveDown();
             }
+
             /**
              * Clean a given string, trimming white space and ensuring all white space is in the correct format
              * @param {String} text
@@ -245,7 +306,7 @@ function createPdfService() {
                     if (element.name === 'p') {
                         document
                             .fontSize(12)
-                            .font('Helvetica')
+                            .font(fonts.regular)
                             .moveDown()
                             .text(cleanText($(element).text()));
                     } else if (element.name === 'li') {
@@ -256,12 +317,12 @@ function createPdfService() {
                         }
                         document
                             .fontSize(12)
-                            .font('Helvetica')
+                            .font(fonts.regular)
                             .list(listItem, {textIndent: 20, bulletIndent: 20});
                     } else if (element.name.includes('h')) {
                         document
                             .fontSize(18)
-                            .font('Helvetica-Bold')
+                            .font(fonts.bold)
                             .moveDown()
                             .text(cleanText($(element).text()));
                     }
@@ -270,7 +331,7 @@ function createPdfService() {
                 document.moveDown();
                 document
                     .fontSize(12)
-                    .font('Helvetica-Bold')
+                    .font(fonts.bold)
                     .text(
                         `Date: ${Intl.DateTimeFormat('en-GB').format(
                             new Date(json.meta.submittedDate)
@@ -279,7 +340,7 @@ function createPdfService() {
                 document.moveDown();
                 document
                     .fontSize(12)
-                    .font('Helvetica-Bold')
+                    .font(fonts.bold)
                     .text(json.declaration.valueLabel);
             }
 
@@ -315,7 +376,7 @@ function createPdfService() {
                 }
 
                 const theme = json.themes[t];
-                pdfDocument.fontSize(14.5).font('Helvetica-Bold');
+                pdfDocument.fontSize(14.5).font(fonts.bold);
 
                 const height = pdfDocument.currentLineHeight();
                 pdfDocument
@@ -340,7 +401,7 @@ function createPdfService() {
             if (checkEndOfPage(pdfDocument)) {
                 pdfDocument.addPage();
             }
-            pdfDocument.fontSize(14.5).font('Helvetica-Bold');
+            pdfDocument.fontSize(14.5).font(fonts.bold);
             const height = pdfDocument.currentLineHeight();
             pdfDocument.rect(pdfDocument.x - 5, pdfDocument.y - 6, 480, height + 10).fill('#000');
             pdfDocument.fillColor('#FFF').text('Consent & Declaration', {underline: false});
@@ -366,7 +427,8 @@ function createPdfService() {
 
     return Object.freeze({
         writeJSONToPDF,
-        calculateApplicationType
+        calculateApplicationType,
+        initialiseFonts // Expose for testing
     });
 }
 

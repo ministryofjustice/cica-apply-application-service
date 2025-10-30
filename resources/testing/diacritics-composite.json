@@ -1,0 +1,70 @@
+{
+    "meta": {
+        "caseReference": "23\\800001",
+        "submittedDate": "2025-01-27T12:00:00.000Z"
+    },
+    "themes": [
+        {
+            "type": "theme",
+            "id": "about-application",
+            "title": "Application",
+            "values": [
+                {
+                    "id": "q-applicant-fatal-claim",
+                    "type": "simple",
+                    "value": false,
+                    "valueLabel": "No",
+                    "theme": "about-application"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "applicant-details",
+            "title": "Your Details",
+            "values": [
+                {
+                    "id": "applicant-name",
+                    "type": "composite",
+                    "label": "What is your name?",
+                    "values": [
+                        {
+                            "id": "q-applicant-first-name",
+                            "type": "simple",
+                            "label": "First name",
+                            "value": "José",
+                            "theme": "applicant-details"
+                        },
+                        {
+                            "id": "q-applicant-last-name",
+                            "type": "simple",
+                            "label": "Last name",
+                            "value": "García-Peña",
+                            "theme": "applicant-details"
+                        }
+                    ],
+                    "theme": "applicant-details"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "crime",
+            "title": "Crime",
+            "values": [
+                {
+                    "id": "q-applicant-did-the-crime-happen-once-or-over-time",
+                    "type": "simple",
+                    "value": "once",
+                    "theme": "crime"
+                }
+            ]
+        }
+    ],
+    "declaration": {
+        "type": "simple",
+        "label": "<div id=\"declaration\"><p>I declare.</p></div>",
+        "value": "i-agree",
+        "valueLabel": "I agree"
+    }
+}

@@ -1,0 +1,64 @@
+{
+    "meta": {
+        "caseReference": "23\\800001",
+        "submittedDate": "2025-01-27T12:00:00.000Z"
+    },
+    "themes": [
+        {
+            "type": "theme",
+            "id": "about-application",
+            "title": "O wniosku",
+            "values": [
+                {
+                    "id": "q-applicant-fatal-claim",
+                    "type": "simple",
+                    "value": false,
+                    "valueLabel": "Nie",
+                    "theme": "about-application"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "applicant-details",
+            "title": "Twoje dane",
+            "values": [
+                {
+                    "id": "q-applicant-name",
+                    "type": "simple",
+                    "label": "Imię i nazwisko",
+                    "value": "Łukasz Zieliński",
+                    "valueLabel": "Łukasz Zieliński",
+                    "theme": "applicant-details"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "crime",
+            "title": "O przestępstwie",
+            "values": [
+                {
+                    "id": "q-applicant-did-the-crime-happen-once-or-over-time",
+                    "type": "simple",
+                    "value": "once",
+                    "theme": "crime"
+                },
+                {
+                    "id": "q-crime-location",
+                    "type": "simple",
+                    "label": "Gdzie doszło do przestępstwa?",
+                    "value": "Kraków, ul. Główna",
+                    "valueLabel": "Kraków, ul. Główna",
+                    "theme": "crime"
+                }
+            ]
+        }
+    ],
+    "declaration": {
+        "type": "simple",
+        "label": "<div id=\"declaration\"><p>Oświadczam, że informacje są prawdziwe.</p></div>",
+        "value": "i-agree",
+        "valueLabel": "Zgadzam się z oświadczeniem"
+    }
+}

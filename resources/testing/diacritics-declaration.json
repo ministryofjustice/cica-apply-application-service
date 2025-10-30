@@ -1,0 +1,40 @@
+{
+    "meta": {
+        "caseReference": "23\\800001",
+        "submittedDate": "2025-01-27T12:00:00.000Z"
+    },
+    "themes": [
+        {
+            "type": "theme",
+            "id": "about-application",
+            "title": "Application",
+            "values": [
+                {
+                    "id": "q-applicant-fatal-claim",
+                    "type": "simple",
+                    "value": false,
+                    "theme": "about-application"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "crime",
+            "title": "Crime",
+            "values": [
+                {
+                    "id": "q-applicant-did-the-crime-happen-once-or-over-time",
+                    "type": "simple",
+                    "value": "once",
+                    "theme": "crime"
+                }
+            ]
+        }
+    ],
+    "declaration": {
+        "type": "simple",
+        "label": "<div id=\"declaration\"><h3>Déclaration & Consentement</h3><p>Je, José García-Müller, déclare que:</p><ul><li>Les informations sont vraies et précises</li><li>J'ai lu et compris les termes</li><li>Je donne mon consentement éclairé</li></ul><p>Signé à Zürich, près de Łódź</p></div>",
+        "value": "i-agree",
+        "valueLabel": "J'accepte la déclaration"
+    }
+}

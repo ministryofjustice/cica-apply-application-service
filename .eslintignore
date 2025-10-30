@@ -2,4 +2,5 @@
 coverage
 stuff
 #! m0-end
+services/pdf/manual-pdf-test.js
 

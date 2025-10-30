@@ -1,0 +1,96 @@
+{
+    "meta": {
+        "caseReference": "23\\800001",
+        "submittedDate": "2025-01-27T12:00:00.000Z"
+    },
+    "themes": [
+        {
+            "type": "theme",
+            "id": "about-application",
+            "title": "Application Information",
+            "values": [
+                {
+                    "id": "q-applicant-fatal-claim",
+                    "type": "simple",
+                    "value": false,
+                    "valueLabel": "No",
+                    "theme": "about-application"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "applicant-details",
+            "title": "International Names",
+            "values": [
+                {
+                    "id": "q-names-spanish",
+                    "type": "simple",
+                    "label": "Spanish",
+                    "value": "José García & Peña Núñez",
+                    "valueLabel": "José García & Peña Núñez",
+                    "theme": "applicant-details"
+                },
+                {
+                    "id": "q-names-scandinavian",
+                    "type": "simple",
+                    "label": "Scandinavian",
+                    "value": "Björn Åström & Søren Møller",
+                    "valueLabel": "Björn Åström & Søren Møller",
+                    "theme": "applicant-details"
+                },
+                {
+                    "id": "q-names-french",
+                    "type": "simple",
+                    "label": "French",
+                    "value": "François Lefèvre",
+                    "valueLabel": "François Lefèvre",
+                    "theme": "applicant-details"
+                },
+                {
+                    "id": "q-names-polish",
+                    "type": "simple",
+                    "label": "Polish",
+                    "value": "Łukasz Zieliński",
+                    "valueLabel": "Łukasz Zieliński",
+                    "theme": "applicant-details"
+                },
+                {
+                    "id": "q-names-german",
+                    "type": "simple",
+                    "label": "German",
+                    "value": "Müller-Schröder",
+                    "valueLabel": "Müller-Schröder",
+                    "theme": "applicant-details"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "crime",
+            "title": "Crime Details",
+            "values": [
+                {
+                    "id": "q-applicant-did-the-crime-happen-once-or-over-time",
+                    "type": "simple",
+                    "value": "once",
+                    "theme": "crime"
+                },
+                {
+                    "id": "q-description",
+                    "type": "simple",
+                    "label": "Description with special characters",
+                    "value": "Café Zürich: événement près de Łódź à 15°C",
+                    "valueLabel": "Café Zürich: événement près de Łódź à 15°C",
+                    "theme": "crime"
+                }
+            ]
+        }
+    ],
+    "declaration": {
+        "type": "simple",
+        "label": "<div id=\"declaration\"><p>Declaration with diacritics: résumé naïve.</p></div>",
+        "value": "i-agree",
+        "valueLabel": "I agree"
+    }
+}

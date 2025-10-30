@@ -1,0 +1,68 @@
+{
+    "meta": {
+        "caseReference": "23\\800001",
+        "submittedDate": "2025-01-27T12:00:00.000Z"
+    },
+    "themes": [
+        {
+            "type": "theme",
+            "id": "about-application",
+            "title": "About your application",
+            "values": [
+                {
+                    "id": "q-applicant-fatal-claim",
+                    "type": "simple",
+                    "label": "Are you applying because someone died?",
+                    "value": false,
+                    "valueLabel": "No",
+                    "theme": "about-application"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "applicant-details",
+            "title": "Your details",
+            "values": [
+                {
+                    "id": "q-applicant-name",
+                    "type": "simple",
+                    "label": "Full name",
+                    "value": "Søren Müller-Renée",
+                    "valueLabel": "Søren Müller-Renée",
+                    "theme": "applicant-details"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "id": "crime",
+            "title": "About the crime",
+            "values": [
+                {
+                    "id": "q-applicant-did-the-crime-happen-once-or-over-time",
+                    "type": "simple",
+                    "label": "Did the crime happen once or over a period of time?",
+                    "value": "once",
+                    "valueLabel": "Once",
+                    "theme": "crime"
+                },
+                {
+                    "id": "q-crime-location",
+                    "type": "simple",
+                    "label": "Where did the crime happen?",
+                    "value": "Łódź, Poland",
+                    "valueLabel": "Łódź, Poland",
+                    "theme": "crime"
+                }
+            ]
+        }
+    ],
+    "declaration": {
+        "type": "simple",
+        "id": "p-applicant-declaration",
+        "label": "<div id=\"declaration\"><p>I declare that the information is true.</p></div>",
+        "value": "i-agree",
+        "valueLabel": "I have read and understood the declaration"
+    }
+}
