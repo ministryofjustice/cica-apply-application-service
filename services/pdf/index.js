@@ -61,39 +61,42 @@ function createPdfService() {
      * @returns string representation of application type
      */
     function calculateApplicationType(applicationJson) {
-        let type = 'Unknown';
-
+        let type = 'unknown';
         if (
-            applicationJson.themes
-                .find(t => t.id === 'about-application')
-                .values.find(q => q.id === 'q-applicant-fatal-claim')?.value
+            applicationJson.meta.type === undefined ||
+            applicationJson.meta.type === 'apply-for-compensation'
         ) {
             if (
                 applicationJson.themes
                     .find(t => t.id === 'about-application')
-                    .values.find(q => q.id === 'q-applicant-claim-type')?.value ||
-                applicationJson.meta?.splitFuneral
+                    .values.find(q => q.id === 'q-applicant-fatal-claim')?.value
             ) {
-                type = 'Funeral';
-            } else {
-                type = 'Fatal';
+                if (
+                    applicationJson.themes
+                        .find(t => t.id === 'about-application')
+                        .values.find(q => q.id === 'q-applicant-claim-type')?.value ||
+                    applicationJson.meta?.splitFuneral
+                ) {
+                    type = 'Funeral';
+                } else {
+                    type = 'Fatal';
+                }
+            } else if (
+                applicationJson.themes
+                    .find(t => t.id === 'crime')
+                    .values.find(q => q.id === 'q-applicant-did-the-crime-happen-once-or-over-time')
+                    ?.value === 'over-a-period-of-time'
+            ) {
+                type = 'Period of abuse';
+            } else if (
+                applicationJson.themes
+                    .find(t => t.id === 'crime')
+                    .values.find(q => q.id === 'q-applicant-did-the-crime-happen-once-or-over-time')
+                    ?.value === 'once'
+            ) {
+                type = 'Personal injury';
             }
-        } else if (
-            applicationJson.themes
-                .find(t => t.id === 'crime')
-                .values.find(q => q.id === 'q-applicant-did-the-crime-happen-once-or-over-time')
-                ?.value === 'over-a-period-of-time'
-        ) {
-            type = 'Period of abuse';
-        } else if (
-            applicationJson.themes
-                .find(t => t.id === 'crime')
-                .values.find(q => q.id === 'q-applicant-did-the-crime-happen-once-or-over-time')
-                ?.value === 'once'
-        ) {
-            type = 'Personal injury';
         }
-
         return type;
     }
 
@@ -104,7 +107,7 @@ function createPdfService() {
      * @returns Promise that resolves when the file has finished being written to
      */
     async function writeJSONToPDF(json, pdfLoc) {
-        return new Promise(res => {
+        try {
             const fonts = initialiseFonts({
                 fontConfig: {
                     regular: path.join(__dirname, 'fonts/NotoSans-Regular.ttf'),
@@ -419,10 +422,10 @@ function createPdfService() {
             }
 
             pdfDocument.end();
-            stream.on('finish', function() {
-                res(true);
-            });
-        }).catch(err => logger.error(err));
+        } catch (err) {
+            console.log(`Error processing case ${json.meta.caseReference}`);
+            throw err;
+        }
     }
 
     return Object.freeze({

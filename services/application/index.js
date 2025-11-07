@@ -121,43 +121,53 @@ async function duplicateJson(applicationJson, temporaryLocation) {
  * @param {string} message - The message picked up from the queue
  */
 async function processMessage(message) {
-    // Initialise services
-    const s3Service = createS3Service();
-    const sqsService = createSqsService();
+    try {
+        // Initialise services
+        const s3Service = createS3Service();
 
-    // Set the location to temporarily store the generated document
-    const temporaryLocation = './temp';
-    if (!fs.existsSync(temporaryLocation)) {
-        fs.mkdirSync(temporaryLocation);
-    }
+        // Set the location to temporarily store the generated document
+        const temporaryLocation = './temp';
+        if (!fs.existsSync(temporaryLocation)) {
+            fs.mkdirSync(temporaryLocation);
+        }
 
-    // Retrieve the JSON data from S3
-    const jsonKey = parseJSONLocation(message);
-    const applicationJson = await s3Service.getFromS3(bucket, jsonKey);
+        // Retrieve the JSON data from S3
+        const jsonKey = parseJSONLocation(message);
+        const applicationJson = await s3Service.getFromS3(bucket, jsonKey);
 
-    const pdfLocation = await processPdf(applicationJson, jsonKey, temporaryLocation);
-
-    // Send message to Tempus queue
-    await sendToTempus(pdfLocation, jsonKey, message);
-
-    // If there is a secondary CRN for an associated funeral expenses application
-    // we need to process a second PDF after having updated some of the JSON data
-    if (applicationJson.meta.funeralReference) {
-        // Modify and duplicate JSON
-        const duplicateKey = getSplitJsonFilename(jsonKey);
-        const tempPath = `${temporaryLocation}/${path.parse(jsonKey).name}-split.json`;
-        await duplicateJson(applicationJson, tempPath);
-
-        // Upload the new JSON to S3 for the Tempus Broker to process as a separate application
-        await s3Service.putInS3(bucket, tempPath, duplicateKey);
-
-        // Generate and upload a second PDF and SQS
-        const splitPdfLocation = await processPdf(applicationJson, duplicateKey, temporaryLocation);
+        const pdfLocation = await processPdf(applicationJson, jsonKey, temporaryLocation);
 
         // Send message to Tempus queue
-        await sendToTempus(splitPdfLocation, duplicateKey, message);
+        await sendToTempus(pdfLocation, jsonKey, message);
+
+        // If there is a secondary CRN for an associated funeral expenses application
+        // we need to process a second PDF after having updated some of the JSON data
+        if (applicationJson.meta.funeralReference) {
+            // Modify and duplicate JSON
+            const duplicateKey = getSplitJsonFilename(jsonKey);
+            const tempPath = `${temporaryLocation}/${path.parse(jsonKey).name}-split.json`;
+            await duplicateJson(applicationJson, tempPath);
+
+            // Upload the new JSON to S3 for the Tempus Broker to process as a separate application
+            await s3Service.putInS3(bucket, tempPath, duplicateKey);
+
+            // Generate and upload a second PDF and SQS
+            const splitPdfLocation = await processPdf(
+                applicationJson,
+                duplicateKey,
+                temporaryLocation
+            );
+
+            // Send message to Tempus queue
+            await sendToTempus(splitPdfLocation, duplicateKey, message);
+        }
+    } catch (err) {
+        logger.info(`Error processing case: `, err);
+        // Allow automatic retries to attempt case again by not deleting the message
+        return;
     }
 
+    const sqsService = createSqsService();
     // Finally delete the consumed message from the Application Queue
     const deleteInput = {
         QueueUrl: applicationQueue,

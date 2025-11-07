@@ -18,6 +18,11 @@ describe('PDF Service', () => {
 
     it('Should get PI application type', () => {
         const json = {
+            meta: {
+                caseReference: '23\\800001',
+                funeralReference: '23\\800002',
+                submittedDate: '2023-07-19T13:21:56.939Z'
+            },
             themes: [
                 {
                     id: 'about-application',
@@ -45,6 +50,11 @@ describe('PDF Service', () => {
 
     it('Should get POA application type', () => {
         const json = {
+            meta: {
+                caseReference: '23\\800001',
+                funeralReference: '23\\800002',
+                submittedDate: '2023-07-19T13:21:56.939Z'
+            },
             themes: [
                 {
                     id: 'about-application',
@@ -72,6 +82,11 @@ describe('PDF Service', () => {
 
     it('Should get Fatal only application type', () => {
         const json = {
+            meta: {
+                caseReference: '23\\800001',
+                funeralReference: '23\\800002',
+                submittedDate: '2023-07-19T13:21:56.939Z'
+            },
             themes: [
                 {
                     id: 'about-application',
@@ -111,6 +126,11 @@ describe('PDF Service', () => {
 
     it('Should get Funeral application type when not split', () => {
         const json = {
+            meta: {
+                caseReference: '23\\800001',
+                funeralReference: '23\\800002',
+                submittedDate: '2023-07-19T13:21:56.939Z'
+            },
             themes: [
                 {
                     id: 'about-application',
