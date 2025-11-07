@@ -16,6 +16,13 @@ describe('PDF Service', () => {
         expect(fs.existsSync(path)).toBeTruthy();
     });
 
+    it('Should generate a valid PDF document for non-application JSON', async () => {
+        const path = './resources/temp/review-output.pdf';
+        const stream = fs.readFileSync('./resources/testing/requestReview.json');
+        await pdfService.writeJSONToPDF(JSON.parse(stream), path);
+        expect(fs.existsSync(path)).toBeTruthy();
+    });
+
     it('Should get PI application type', () => {
         const json = {
             meta: {
