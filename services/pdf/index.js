@@ -4,8 +4,8 @@ const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
-const logger = require('../logging/logger');
 const QRCode = require('qrcode');
+const logger = require('../logging/logger');
 
 // Define default font configuration, by default PDFKit uses Helvetica
 const defaults = {
@@ -197,7 +197,7 @@ function createPdfService() {
                     if (question.id.includes('name')) {
                         addPDFSubquestions(question.values);
                     } else {
-                        Object.keys(question.values).forEach(function(q) {
+                        Object.keys(question.values).forEach(q => {
                             addPDFSubquestion(question.values[q]);
                         });
                     }
@@ -388,13 +388,13 @@ function createPdfService() {
 
             // Write the Application Type to the beginning of the document
             // Only applies to applications for compensation
-            if (json.meta.type == undefined || json.meta.type === 'apply-for-compensation') {
+            if (json.meta.type === undefined || json.meta.type === 'apply-for-compensation') {
                 writeApplicationType();
             }
 
             // Loops over each theme in the json, and for each writes the header and then
             //     loops through each question in the theme, which are each written using addPDFQuestion
-            Object.keys(json.themes).forEach(function(t) {
+            Object.keys(json.themes).forEach(t => {
                 if (checkEndOfPage(pdfDocument)) {
                     // If we are too close to the bottom of the page, start writing the header
                     // to the top of a new page instead. This is calculated based on the current Y position
@@ -415,7 +415,7 @@ function createPdfService() {
 
                 pdfDocument.moveDown();
 
-                Object.keys(theme.values).forEach(function(question) {
+                Object.keys(theme.values).forEach(question => {
                     if (!theme.values[question].meta?.integration?.hideOnSummary) {
                         addPDFQuestion(theme.values[question]);
                     }
@@ -459,7 +459,9 @@ function createPdfService() {
             }
 
             pdfDocument.end();
-            await new Promise(resolve => stream.on('finish', resolve));
+            await new Promise(resolve => {
+                stream.on('finish', resolve);
+            });
         } catch (err) {
             logger.info(`Error processing case ${json.meta.caseReference}`);
             throw err;

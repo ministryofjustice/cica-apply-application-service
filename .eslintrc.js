@@ -23,6 +23,7 @@ const config = {
         // https://github.com/eslint/eslint/issues/8953#issuecomment-317697474
         strict: ['error', 'safe'],
         'import/extensions': ['off'],
+        'no-inner-declarations': ['off'],
         'fp/no-class': 'error'
     },
     plugins: ['prettier', 'fp']
