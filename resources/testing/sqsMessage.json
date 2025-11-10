@@ -11,6 +11,12 @@
             "ReceiptHandle": "NTVkMWJjOTgtNDcwOS00NWVkLWFlMTAtYzA5ZGEzM2M0MmRiIGFybjphd3M6c3FzOmV1LXdlc3QtMjowMDAwMDAwMDAwMDA6YXBwbGljYXRpb24tcXVldWUgYTM3MWFjYmEtMDBlOS00MjZlLWIzODUtZjZlMThjNWQyZWVmIDE2ODU2MTU0MDMuODYwNjA4Mw==",
             "MD5OfBody": "2e9bcc95e74440dba14a8774414bbaa8",
             "Body": "{\"applicationJSONDocumentSummaryKey\": \"test/sample-location.json\"}"
+        },
+        {
+            "MessageId": "a371acba-00e9-426e-b385-f6e18c5d2eef",
+            "ReceiptHandle": "NTVkMWJjOTgtNDcwOS00NWVkLWFlMTAtYzA5ZGEzM2M0MmRiIGFybjphd3M6c3FzOmV1LXdlc3QtMjowMDAwMDAwMDAwMDA6YXBwbGljYXRpb24tcXVldWUgYTM3MWFjYmEtMDBlOS00MjZlLWIzODUtZjZlMThjNWQyZWVmIDE2ODU2MTU0MDMuODYwNjA4Mw==",
+            "MD5OfBody": "2e9bcc95e74440dba14a8774414bbaa8",
+            "Body": "{\"applicationJSONDocumentSummaryKey\": \"test/sample-location.json\", \"bucket\":\"test-bucket\"}"
         }
     ]
 }

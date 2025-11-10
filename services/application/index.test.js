@@ -4,6 +4,16 @@ const fs = require('fs');
 const {mockClient} = require('aws-sdk-client-mock');
 const {SendMessageCommand, SQSClient} = require('@aws-sdk/client-sqs');
 const applicationService = require('.');
+const logger = require('../logging/logger.js');
+
+jest.mock('../logging/logger.js', () => {
+    const pinoMock = {
+        info: jest.fn(),
+        error: jest.fn(),
+        debug: jest.fn()
+    };
+    return pinoMock;
+});
 
 describe('Application Service', () => {
     it('Should generate a valid PDF location based on the case reference', async () => {
@@ -95,5 +105,39 @@ describe('Application Service', () => {
 
         // Act and Assert
         expect(result).toBe('Skipped sending to Tempus');
+    });
+
+    it('Should get bucket to put a PDF in from the sqs message', async () => {
+        // Arrange
+        const stream = fs.readFileSync('resources/testing/sqsMessage.json');
+
+        // Act
+        const bucket = applicationService.getDocumentDestination(JSON.parse(stream).Messages[2]);
+
+        // Assert
+        expect(bucket).toEqual('test-bucket');
+    });
+
+    it('Should default to the regular document store bucket if no bucket is provided in the sqs message', async () => {
+        // Arrange
+        const stream = fs.readFileSync('resources/testing/sqsMessage.json');
+
+        // Act
+        const bucket = applicationService.getDocumentDestination(JSON.parse(stream).Messages[0]);
+
+        // Assert
+        expect(bucket).toEqual(process.env.S3_BUCKET);
+    });
+
+    it('Should log errors without crashing', async () => {
+        // Arrange
+        const invalidStream = fs.readFileSync('resources/testing/invalidSqsMessage.json');
+        const validStream = fs.readFileSync('resources/testing/sqsMessage.json');
+        const errorMessage = new Error(
+            'Application JSON document location is not in a valid format (.json)'
+        );
+        await applicationService.processMessage(JSON.parse(invalidStream).Messages[0]);
+        await applicationService.processMessage(JSON.parse(validStream).Messages[0]);
+        expect(logger.info).toHaveBeenCalledWith(`Error processing case: `, errorMessage);
     });
 });
