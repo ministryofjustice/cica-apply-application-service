@@ -2,7 +2,7 @@
     "name": "Application Service",
     "version": "1.0.15",
     "engines": {
-        "npm": ">=9.5.0",
+        "npm": ">=11.6.2",
         "node": ">=24.13.0"
     },
     "scripts": {
