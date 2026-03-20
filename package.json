@@ -47,5 +47,8 @@
         "prettier": "^1.19.1",
         "yamljs": "^0.3.0"
     },
+    "overrides": {
+        "fast-xml-parser": "^5.5.6"
+    },
     "license": "MIT"
 }
