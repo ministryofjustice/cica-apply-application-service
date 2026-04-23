@@ -64,7 +64,7 @@ function generatePDFLocation(applicationJson) {
     ) {
         return `${refNumber}/application-summary.pdf`;
     }
-    return `${refNumber}/${applicationJson.meta.barcodeString}.pdf`;
+    return `scanned-documents/${applicationJson.meta.barcodeString}.pdf`;
 }
 
 /**
@@ -109,6 +109,25 @@ async function sendToTempus(pdfLocation, jsonKey, message) {
     const sqsBody = `{
             "applicationPDFDocumentSummaryKey": "${pdfLocation}",
             "applicationJSONDocumentSummaryKey": "${jsonKey}"
+        }`;
+    return sqsService.sendSQS(sqsInput, sqsBody);
+}
+
+/**
+ * Received letters must send a different message into the tempus queue to kick off the scanning job
+ * @param {string} pdfLocation - the location in s3 of the letter PDF.
+ */
+async function sendLetterToTempus(pdfLocation, barcode) {
+    const sqsService = createSqsService();
+
+    // Write message to Tempus queue for further processing
+    const sqsInput = {
+        QueueUrl: tempusQueue
+    };
+    const sqsBody = `{
+            "applicationPDFDocumentSummaryKey": "${pdfLocation}",
+            "barcode": ${barcode} 
+            "jobType": "scan"
         }`;
     return sqsService.sendSQS(sqsInput, sqsBody);
 }
@@ -192,6 +211,10 @@ async function processMessage(message) {
                 // Send message to Tempus queue
                 await sendToTempus(splitPdfLocation, duplicateKey, message);
             }
+        } else {
+            // Digital correspondence, like review requests
+            const barcode = applicationJson.meta.barcodeString;
+            await sendLetterToTempus(pdfLocation, barcode);
         }
     } catch (err) {
         logger.info(`Error processing case: `, err);
