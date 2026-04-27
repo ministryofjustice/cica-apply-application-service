@@ -2,8 +2,8 @@
     "name": "Application Service",
     "version": "1.0.17",
     "engines": {
-        "npm": ">=11.6.2",
-        "node": ">=24.13.0"
+        "npm": ">=11.12.1",
+        "node": ">=24.15.0"
     },
     "scripts": {
         "start": "node ./bin/www",

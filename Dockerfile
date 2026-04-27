@@ -1,5 +1,9 @@
 # lets start from an image that already has nodejs installed
-FROM node:24.13.0-trixie-slim  as base
+FROM node:24.15.0-trixie-slim  as base
+
+USER root
+RUN npm install -g npm@11.13.0
+
 
 RUN groupadd -g 1014 dc_user \
     && useradd -rm -d /usr/src/app -u 1015 -g dc_user dc_user
