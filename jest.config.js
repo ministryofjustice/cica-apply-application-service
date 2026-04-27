@@ -7,6 +7,7 @@ const config = {
 process.env.DCS_JWT_SECRET = '';
 process.env.DCS_LOG_LEVEL = 'silent';
 process.env.APP_ENV = 'test';
+process.env.S3_BUCKET = 'test-default-bucket';
 
 config.coverageThreshold = {
     global: {

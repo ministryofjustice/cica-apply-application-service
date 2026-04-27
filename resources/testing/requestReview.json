@@ -1,0 +1,56 @@
+{
+    "meta": {
+        "caseReference": "25\\123456",
+        "type": "request-a-review",
+        "barcodeString": "1234567890",
+        "answers": {
+            "owner": {
+                "owner-id": "urn:fdc:gov.uk:2022:MBqXATh06Q929rqJtw01jy6qc3V4u5C0fJOTYu6Azoc",
+                "is-authenticated": true
+            },
+            "origin": {"channel": "web"},
+            "system": {
+                "env": "dev",
+                "external-id": "urn:uuid:686f3a5e-12a4-417c-a5eb-1f12bc93efd8",
+                "case-reference": "25\\123456"
+            },
+            "p--decision-letter": {},
+            "p--ask-for-a-review": {},
+            "p--check-your-answers": {},
+            "p--why-do-you-want-a-review": {"q--why-do-you-want-a-review": "asdf"},
+            "p--do-you-have-supporting-info": {"q--supporting-info": false}
+        },
+        "channel": "web",
+        "owner": {
+            "ownerId": "urn:fdc:gov.uk:2022:MBqXATh06Q929rqJtw01jy6qc3V4u5C0fJOTYu6Azoc",
+            "isAuthenticated": true
+        },
+        "submittedDate": "2025-11-07T12:40:40.734Z"
+    },
+    "themes": [
+        {
+            "type": "theme",
+            "id": "request-a-review",
+            "title": "Request a review",
+            "values": [
+                {
+                    "id": "q--why-do-you-want-a-review",
+                    "type": "simple",
+                    "label": "Tell us why you want a review",
+                    "value": "Reasons I would like a review.",
+                    "sectionId": "p--why-do-you-want-a-review",
+                    "theme": "request-a-review"
+                },
+                {
+                    "id": "q--supporting-info",
+                    "type": "simple",
+                    "label": "Do you have supporting information?",
+                    "value": false,
+                    "valueLabel": "No",
+                    "sectionId": "p--do-you-have-supporting-info",
+                    "theme": "request-a-review"
+                }
+            ]
+        }
+    ]
+}

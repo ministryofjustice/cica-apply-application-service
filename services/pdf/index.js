@@ -4,6 +4,7 @@ const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
+const QRCode = require('qrcode');
 const logger = require('../logging/logger');
 
 // Define default font configuration, by default PDFKit uses Helvetica
@@ -56,44 +57,47 @@ function initialiseFonts({fontConfig = {}} = {}) {
 /** Returns PDF Service object with a function to write a JSON to a PDF */
 function createPdfService() {
     /**
-     * Calculates the type of application to be displayed on the Summary form.
+     * Calculates the type of an application for compensation to be displayed on the Summary form.
      * @param {JSON} applicationJson
      * @returns string representation of application type
      */
     function calculateApplicationType(applicationJson) {
-        let type = 'Unknown';
-
+        let type = 'unknown';
         if (
-            applicationJson.themes
-                .find(t => t.id === 'about-application')
-                .values.find(q => q.id === 'q-applicant-fatal-claim')?.value
+            applicationJson.meta.type === undefined ||
+            applicationJson.meta.type === 'apply-for-compensation'
         ) {
             if (
                 applicationJson.themes
                     .find(t => t.id === 'about-application')
-                    .values.find(q => q.id === 'q-applicant-claim-type')?.value ||
-                applicationJson.meta?.splitFuneral
+                    .values.find(q => q.id === 'q-applicant-fatal-claim')?.value
             ) {
-                type = 'Funeral';
-            } else {
-                type = 'Fatal';
+                if (
+                    applicationJson.themes
+                        .find(t => t.id === 'about-application')
+                        .values.find(q => q.id === 'q-applicant-claim-type')?.value ||
+                    applicationJson.meta?.splitFuneral
+                ) {
+                    type = 'Funeral';
+                } else {
+                    type = 'Fatal';
+                }
+            } else if (
+                applicationJson.themes
+                    .find(t => t.id === 'crime')
+                    .values.find(q => q.id === 'q-applicant-did-the-crime-happen-once-or-over-time')
+                    ?.value === 'over-a-period-of-time'
+            ) {
+                type = 'Period of abuse';
+            } else if (
+                applicationJson.themes
+                    .find(t => t.id === 'crime')
+                    .values.find(q => q.id === 'q-applicant-did-the-crime-happen-once-or-over-time')
+                    ?.value === 'once'
+            ) {
+                type = 'Personal injury';
             }
-        } else if (
-            applicationJson.themes
-                .find(t => t.id === 'crime')
-                .values.find(q => q.id === 'q-applicant-did-the-crime-happen-once-or-over-time')
-                ?.value === 'over-a-period-of-time'
-        ) {
-            type = 'Period of abuse';
-        } else if (
-            applicationJson.themes
-                .find(t => t.id === 'crime')
-                .values.find(q => q.id === 'q-applicant-did-the-crime-happen-once-or-over-time')
-                ?.value === 'once'
-        ) {
-            type = 'Personal injury';
         }
-
         return type;
     }
 
@@ -104,7 +108,7 @@ function createPdfService() {
      * @returns Promise that resolves when the file has finished being written to
      */
     async function writeJSONToPDF(json, pdfLoc) {
-        return new Promise(res => {
+        try {
             const fonts = initialiseFonts({
                 fontConfig: {
                     regular: path.join(__dirname, 'fonts/NotoSans-Regular.ttf'),
@@ -193,7 +197,7 @@ function createPdfService() {
                     if (question.id.includes('name')) {
                         addPDFSubquestions(question.values);
                     } else {
-                        Object.keys(question.values).forEach(function(q) {
+                        Object.keys(question.values).forEach(q => {
                             addPDFSubquestion(question.values[q]);
                         });
                     }
@@ -203,8 +207,21 @@ function createPdfService() {
 
             /**
              * Writes the static PDF header
+             * @param {JSON} documentJson - The JSON of the submitted data
              */
-            function writeHeader() {
+            function writeHeader(documentJson) {
+                // TODO: as the number of different documents increases a mapping of type to summary and title could be stored in a separate file, or passed in from DCS
+                const documentType = documentJson.meta.type;
+                let title = '';
+                let summaryText = '';
+                if (documentType === undefined || documentType === 'apply-for-compensation') {
+                    title = 'CICA Summary Application Form';
+                    summaryText =
+                        'This document provides a summary of the information supplied to CICA in your application form. Please contact us on 0300 003 3601 if you require any changes to be made.';
+                } else {
+                    title = 'CICA Request for Review';
+                    summaryText = `This document provides a summary of the information supplied to CICA in your request for a review of your nil decision for case ${json.meta.caseReference}.`;
+                }
                 pdfDocument
                     .fontSize(10)
                     .font(fonts.regular)
@@ -220,14 +237,12 @@ function createPdfService() {
                     .fillColor('#444444')
                     .fontSize(25)
                     .font(fonts.bold)
-                    .text('CICA Summary Application Form')
+                    .text(title)
                     .fontSize(10)
                     .moveDown()
                     .font(fonts.regular)
                     .fillColor('#808080')
-                    .text(
-                        'This document provides a summary of the information supplied to CICA in your application form. Please contact us on 0300 003 3601 if you require any changes to be made.'
-                    )
+                    .text(summaryText)
                     .moveDown();
             }
 
@@ -269,7 +284,7 @@ function createPdfService() {
             }
 
             /**
-             * Calculates the application type and writes it to the document
+             * Calculates the application type of an application for compensation and writes it to the document
              */
             function writeApplicationType() {
                 const type = calculateApplicationType(json);
@@ -358,15 +373,28 @@ function createPdfService() {
                 return yPos > bottomBorder - bottomMargin - lineHeight - 25;
             }
 
+            async function generateLetterBarcode(barcodeString) {
+                // Generate QR Code and convert base64 to buffer
+                // QRCode.toFile('./test.png', barcodeString);
+                const qrDataUrl = await QRCode.toDataURL(barcodeString);
+
+                // Convert base64 to buffer
+                const qrImage = qrDataUrl.replace(/^data:image\/png;base64,/, '');
+                return Buffer.from(qrImage, 'base64');
+            }
+
             // Write the main header to the beginning of the document
-            writeHeader();
+            writeHeader(json);
 
             // Write the Application Type to the beginning of the document
-            writeApplicationType();
+            // Only applies to applications for compensation
+            if (json.meta.type === undefined || json.meta.type === 'apply-for-compensation') {
+                writeApplicationType();
+            }
 
             // Loops over each theme in the json, and for each writes the header and then
             //     loops through each question in the theme, which are each written using addPDFQuestion
-            Object.keys(json.themes).forEach(function(t) {
+            Object.keys(json.themes).forEach(t => {
                 if (checkEndOfPage(pdfDocument)) {
                     // If we are too close to the bottom of the page, start writing the header
                     // to the top of a new page instead. This is calculated based on the current Y position
@@ -387,7 +415,7 @@ function createPdfService() {
 
                 pdfDocument.moveDown();
 
-                Object.keys(theme.values).forEach(function(question) {
+                Object.keys(theme.values).forEach(question => {
                     if (!theme.values[question].meta?.integration?.hideOnSummary) {
                         addPDFQuestion(theme.values[question]);
                     }
@@ -397,21 +425,33 @@ function createPdfService() {
             pdfDocument.fillColor('#444444');
 
             // Consent summary header
+            // Only applies for applications for compensation
+            if (json.declaration) {
+                if (checkEndOfPage(pdfDocument)) {
+                    pdfDocument.addPage();
+                }
+                pdfDocument.fontSize(14.5).font(fonts.bold);
+                const height = pdfDocument.currentLineHeight();
+                pdfDocument
+                    .rect(pdfDocument.x - 5, pdfDocument.y - 6, 480, height + 10)
+                    .fill('#000');
+                pdfDocument.fillColor('#FFF').text('Consent & Declaration', {underline: false});
+                pdfDocument.moveDown();
 
-            if (checkEndOfPage(pdfDocument)) {
-                pdfDocument.addPage();
+                pdfDocument.fillColor('#444444');
+
+                // Write the HTML string from the declaration section of the application json.
+                writeDeclaration(pdfDocument, json.declaration.label);
             }
-            pdfDocument.fontSize(14.5).font(fonts.bold);
-            const height = pdfDocument.currentLineHeight();
-            pdfDocument.rect(pdfDocument.x - 5, pdfDocument.y - 6, 480, height + 10).fill('#000');
-            pdfDocument.fillColor('#FFF').text('Consent & Declaration', {underline: false});
-            pdfDocument.moveDown();
-
-            pdfDocument.fillColor('#444444');
-
-            // Write the HTML string from the declaration section of the application json.
-            writeDeclaration(pdfDocument, json.declaration.label);
-
+            if (json.meta.barcodeString) {
+                const imgBuffer = await generateLetterBarcode(json.meta.barcodeString);
+                pdfDocument.addPage();
+                pdfDocument.image(imgBuffer, {
+                    fit: [250, 250],
+                    align: 'center',
+                    valign: 'center'
+                });
+            }
             const pages = pdfDocument.bufferedPageRange();
             for (let i = 0; i < pages.count; i += 1) {
                 pdfDocument.switchToPage(i);
@@ -419,10 +459,13 @@ function createPdfService() {
             }
 
             pdfDocument.end();
-            stream.on('finish', function() {
-                res(true);
+            await new Promise(resolve => {
+                stream.on('finish', resolve);
             });
-        }).catch(err => logger.error(err));
+        } catch (err) {
+            logger.info(`Error processing case ${json.meta.caseReference}`);
+            throw err;
+        }
     }
 
     return Object.freeze({
