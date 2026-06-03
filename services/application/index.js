@@ -27,6 +27,16 @@ function parseJSONLocation(message) {
 }
 
 /**
+ * Extracts the questionnaireId from the SQS message body if present.
+ * @param {object} message - The SQS message received.
+ * @returns {string|null} The questionnaireId if present, otherwise null.
+ */
+function parseQuestionnaireId(message) {
+    const messageBody = JSON.parse(message.Body);
+    return messageBody.questionnaireId ?? null;
+}
+
+/**
  * Gets the full S3 URI of the split JSON file
  * @param {string} key - The original filename for the base JSON.
  */
@@ -74,9 +84,16 @@ async function processPdf(applicationJson, jsonKey, temporaryLocation) {
     return pdfLocation;
 }
 
-async function sendToTempus(pdfLocation, jsonKey, message) {
+async function sendToTempus({
+    pdfLocation,
+    jsonKey,
+    message,
+    questionnaireId,
+    caseReference,
+    isSplitFuneralPDF = false
+}) {
     if (JSON.parse(message.Body).regeneratePdf) {
-        logger.info('Skipping sending to Tempus.');
+        logger.info({questionnaireId, caseReference}, 'Skipping sending to Tempus.');
         return 'Skipped sending to Tempus';
     }
 
@@ -86,10 +103,18 @@ async function sendToTempus(pdfLocation, jsonKey, message) {
     const sqsInput = {
         QueueUrl: tempusQueue
     };
-    const sqsBody = `{
-            "applicationPDFDocumentSummaryKey": "${pdfLocation}",
-            "applicationJSONDocumentSummaryKey": "${jsonKey}"
-        }`;
+
+    const sqsBody = JSON.stringify({
+        applicationPDFDocumentSummaryKey: pdfLocation,
+        applicationJSONDocumentSummaryKey: jsonKey,
+        questionnaireId
+    });
+
+    if (isSplitFuneralPDF) {
+        logger.info({questionnaireId}, 'Split funeral message sent to Tempus queue');
+    } else {
+        logger.info({questionnaireId, caseReference}, 'Sending message to Tempus queue');
+    }
     return sqsService.sendSQS(sqsInput, sqsBody);
 }
 
@@ -133,12 +158,23 @@ async function processMessage(message) {
 
     // Retrieve the JSON data from S3
     const jsonKey = parseJSONLocation(message);
+    const questionnaireId = parseQuestionnaireId(message);
     const applicationJson = await s3Service.getFromS3(bucket, jsonKey);
+    const {caseReference} = applicationJson.meta;
+
+    logger.info({questionnaireId, caseReference}, 'Processing application message');
 
     const pdfLocation = await processPdf(applicationJson, jsonKey, temporaryLocation);
+    logger.info({questionnaireId, caseReference, pdfLocation}, 'PDF generated and uploaded to S3');
 
     // Send message to Tempus queue
-    await sendToTempus(pdfLocation, jsonKey, message);
+    await sendToTempus({
+        pdfLocation,
+        jsonKey,
+        message,
+        questionnaireId,
+        caseReference
+    });
 
     // If there is a secondary CRN for an associated funeral expenses application
     // we need to process a second PDF after having updated some of the JSON data
@@ -153,9 +189,20 @@ async function processMessage(message) {
 
         // Generate and upload a second PDF and SQS
         const splitPdfLocation = await processPdf(applicationJson, duplicateKey, temporaryLocation);
+        logger.info(
+            {questionnaireId, funeralReference: caseReference},
+            'Split funeral PDF generated and uploaded to S3'
+        );
 
         // Send message to Tempus queue
-        await sendToTempus(splitPdfLocation, duplicateKey, message);
+        await sendToTempus({
+            pdfLocation: splitPdfLocation,
+            jsonKey: duplicateKey,
+            message,
+            questionnaireId,
+            caseReference,
+            isSplitFuneralPDF: true
+        });
     }
 
     // Finally delete the consumed message from the Application Queue
@@ -164,6 +211,7 @@ async function processMessage(message) {
         ReceiptHandle: message.ReceiptHandle
     };
     await sqsService.deleteSQS(deleteInput);
+    logger.info({questionnaireId, caseReference}, 'Application message processing complete');
 }
 
 /**
@@ -196,6 +244,7 @@ module.exports = {
     applicationService,
     generatePDFLocation,
     parseJSONLocation,
+    parseQuestionnaireId,
     processMessage,
     processPdf,
     handleMessage,

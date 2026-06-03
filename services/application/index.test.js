@@ -62,6 +62,53 @@ describe('Application Service', () => {
         expect(splitKey).toBe('testdirectory/originalfile-split.json');
     });
 
+    it('Should return the questionnaireId from an SQS message body', () => {
+        // Arrange
+        const message = {
+            Body: JSON.stringify({
+                applicationJSONDocumentSummaryKey: 'test/sample-location.json',
+                questionnaireId: 'f47ac10b-58cc-4372-a567-0e02b2c3d479'
+            })
+        };
+
+        // Act
+        const result = applicationService.parseQuestionnaireId(message);
+
+        // Assert
+        expect(result).toBe('f47ac10b-58cc-4372-a567-0e02b2c3d479');
+    });
+
+    it('Should return null when questionnaireId is not present in the SQS message body', () => {
+        // Arrange
+        const message = {
+            Body: JSON.stringify({
+                applicationJSONDocumentSummaryKey: 'test/sample-location.json'
+            })
+        };
+
+        // Act
+        const result = applicationService.parseQuestionnaireId(message);
+
+        // Assert
+        expect(result).toBeNull();
+    });
+
+    it('Should return null when questionnaireId is explicitly null in the SQS message body', () => {
+        // Arrange
+        const message = {
+            Body: JSON.stringify({
+                applicationJSONDocumentSummaryKey: 'test/sample-location.json',
+                questionnaireId: null
+            })
+        };
+
+        // Act
+        const result = applicationService.parseQuestionnaireId(message);
+
+        // Assert
+        expect(result).toBeNull();
+    });
+
     it('Should send to tempus', async () => {
         // Arrange
         const sqsMock = mockClient(SQSClient);
@@ -73,7 +120,7 @@ describe('Application Service', () => {
             Body: '{"applicationJSONDocumentSummaryKey": "test/sample-location.json"}'
         };
 
-        const result = await applicationService.sendToTempus(pdfLocation, key, message);
+        const result = await applicationService.sendToTempus({pdfLocation, jsonKey: key, message});
 
         // Act and Assert
         expect(result).toBe('Message Sent');
@@ -91,7 +138,7 @@ describe('Application Service', () => {
                 '{"applicationJSONDocumentSummaryKey": "test/sample-location.json", "regeneratePdf": true}'
         };
 
-        const result = await applicationService.sendToTempus(pdfLocation, key, message);
+        const result = await applicationService.sendToTempus({pdfLocation, jsonKey: key, message});
 
         // Act and Assert
         expect(result).toBe('Skipped sending to Tempus');
