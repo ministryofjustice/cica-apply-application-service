@@ -29,11 +29,16 @@ function parseJSONLocation(message) {
 /**
  * Extracts the questionnaireId from the SQS message body if present.
  * @param {object} message - The SQS message received.
- * @returns {string|null} The questionnaireId if present, otherwise null.
+ * @returns {string|undefined} The questionnaireId if present, otherwise undefined.
  */
 function parseQuestionnaireId(message) {
-    const messageBody = JSON.parse(message.Body);
-    return messageBody.questionnaireId ?? null;
+    try {
+        const messageBody = JSON.parse(message.Body);
+        return messageBody.questionnaireId;
+    } catch (err) {
+        logger.error({err}, 'Failed to parse questionnaireId from message body');
+        return undefined;
+    }
 }
 
 /**
@@ -111,7 +116,7 @@ async function sendToTempus({
     });
 
     if (isSplitFuneralPDF) {
-        logger.info({questionnaireId}, 'Split funeral message sent to Tempus queue');
+        logger.info({questionnaireId, caseReference}, 'Split funeral message sent to Tempus queue');
     } else {
         logger.info({questionnaireId, caseReference}, 'Sending message to Tempus queue');
     }
@@ -126,15 +131,16 @@ async function sendToTempus({
  * @param {string} temporaryLocation - a temporary local location to save the PDF to until it is uploaded
  */
 async function duplicateJson(applicationJson, temporaryLocation) {
-    applicationJson.meta.caseReference = applicationJson.meta.funeralReference;
-    applicationJson.meta.splitFuneral = true;
+    const duplicatedJson = structuredClone(applicationJson);
+    duplicatedJson.meta.caseReference = applicationJson.meta.funeralReference;
+    duplicatedJson.meta.splitFuneral = true;
 
     return new Promise((resolve, reject) => {
-        fs.writeFile(temporaryLocation, JSON.stringify(applicationJson), err => {
+        fs.writeFile(temporaryLocation, JSON.stringify(duplicatedJson), err => {
             if (err) {
                 reject(err);
             } else {
-                resolve(true);
+                resolve(duplicatedJson);
             }
         });
     });
@@ -182,15 +188,16 @@ async function processMessage(message) {
         // Modify and duplicate JSON
         const duplicateKey = getSplitJsonFilename(jsonKey);
         const tempPath = `${temporaryLocation}/${path.parse(jsonKey).name}-split.json`;
-        await duplicateJson(applicationJson, tempPath);
+        const duplicatedJson = await duplicateJson(applicationJson, tempPath);
 
         // Upload the new JSON to S3 for the Tempus Broker to process as a separate application
         await s3Service.putInS3(bucket, tempPath, duplicateKey);
 
         // Generate and upload a second PDF and SQS
-        const splitPdfLocation = await processPdf(applicationJson, duplicateKey, temporaryLocation);
+        const splitPdfLocation = await processPdf(duplicatedJson, duplicateKey, temporaryLocation);
+        const funeralCaseReference = duplicatedJson.meta.caseReference;
         logger.info(
-            {questionnaireId, funeralReference: caseReference},
+            {questionnaireId, caseReference, funeralReference: funeralCaseReference},
             'Split funeral PDF generated and uploaded to S3'
         );
 
@@ -200,7 +207,7 @@ async function processMessage(message) {
             jsonKey: duplicateKey,
             message,
             questionnaireId,
-            caseReference,
+            caseReference: funeralCaseReference,
             isSplitFuneralPDF: true
         });
     }

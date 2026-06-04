@@ -78,7 +78,7 @@ describe('Application Service', () => {
         expect(result).toBe('f47ac10b-58cc-4372-a567-0e02b2c3d479');
     });
 
-    it('Should return null when questionnaireId is not present in the SQS message body', () => {
+    it('Should return undefined when questionnaireId is not present in the SQS message body', () => {
         // Arrange
         const message = {
             Body: JSON.stringify({
@@ -90,15 +90,15 @@ describe('Application Service', () => {
         const result = applicationService.parseQuestionnaireId(message);
 
         // Assert
-        expect(result).toBeNull();
+        expect(result).toBeUndefined();
     });
 
-    it('Should return null when questionnaireId is explicitly null in the SQS message body', () => {
+    it('Should return undefined when questionnaireId is explicitly null in the SQS message body', () => {
         // Arrange
         const message = {
             Body: JSON.stringify({
                 applicationJSONDocumentSummaryKey: 'test/sample-location.json',
-                questionnaireId: null
+                questionnaireId: undefined
             })
         };
 
@@ -106,7 +106,7 @@ describe('Application Service', () => {
         const result = applicationService.parseQuestionnaireId(message);
 
         // Assert
-        expect(result).toBeNull();
+        expect(result).toBeUndefined();
     });
 
     it('Should send to tempus', async () => {

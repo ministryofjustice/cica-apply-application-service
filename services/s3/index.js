@@ -30,7 +30,6 @@ function createS3Service() {
                 logger.info('File retrieved from S3 is valid');
             }
         }
-        logger.info(process.env.KMS_KEY);
         const content = {
             Bucket: bucket,
             Key: `${key}`,
